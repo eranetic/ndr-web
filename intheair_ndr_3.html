@@ -1,0 +1,1339 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>In De Air — NDR Apparel</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blk:#080808;--blk2:#111111;--blk3:#181818;--blk4:#222222;
+  --gold:#BFA050;--gold2:#D4B565;--gf:rgba(191,160,80,.1);
+  --wh:#F0EEE8;--wh2:#A0A09A;--wh3:#555555;--red:#C03030;
+  --ff:"Bebas Neue",sans-serif;--fb:"Outfit",sans-serif;
+}
+html,body{width:100%;margin:0;padding:0;}
+body{background:var(--blk);color:var(--wh);font-family:var(--fb);overflow-x:hidden;cursor:none;}
+#cur{position:fixed;width:9px;height:9px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+#curR{position:fixed;width:32px;height:32px;border:1px solid rgba(191,160,80,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s;}
+@media(hover:none){#cur,#curR{display:none;}body{cursor:auto;}}
+
+/* HEADER — full width grid */
+header{
+  position:fixed;top:0;left:0;right:0;width:100%;
+  z-index:800;height:64px;
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;padding:0 5%;
+  transition:background .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+header.stuck{background:rgba(8,8,8,.96);backdrop-filter:blur(20px);border-bottom-color:rgba(191,160,80,.12);}
+.logo{font-family:var(--ff);font-size:26px;letter-spacing:3px;color:var(--wh);cursor:pointer;user-select:none;white-space:nowrap;}
+.logo em{color:var(--gold);font-style:normal;}
+nav{display:flex;gap:28px;align-items:center;justify-content:center;}
+nav a{color:var(--wh2);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:500;cursor:pointer;transition:color .25s;white-space:nowrap;}
+nav a:hover,nav a.act{color:var(--wh);}
+.hdr-r{display:flex;gap:10px;align-items:center;justify-content:flex-end;}
+.hbtn{background:none;border:1px solid rgba(255,255,255,.14);color:var(--wh2);font-family:var(--fb);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:8px 16px;cursor:pointer;transition:all .25s;white-space:nowrap;}
+.hbtn:hover{border-color:var(--gold);color:var(--gold);}
+.hbtn.pri{background:var(--gold);border-color:var(--gold);color:var(--blk);font-weight:700;}
+.hbtn.pri:hover{background:var(--gold2);}
+.cbtn{position:relative;cursor:pointer;padding:6px;display:flex;align-items:center;}
+.cbtn svg{width:20px;height:20px;stroke:var(--wh2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s;}
+.cbtn:hover svg{stroke:var(--gold);}
+.cbn{position:absolute;top:-3px;right:-3px;width:16px;height:16px;background:var(--gold);border-radius:50%;font-size:9px;font-weight:700;color:var(--blk);display:flex;align-items:center;justify-content:center;}
+.user-chip{display:flex;align-items:center;gap:8px;padding:5px 12px 5px 5px;border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:border .2s;white-space:nowrap;}
+.user-chip:hover{border-color:rgba(191,160,80,.4);}
+.uav{width:26px;height:26px;border-radius:50%;background:var(--gf);border:1px solid rgba(191,160,80,.3);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:12px;color:var(--gold);}
+.uname{font-size:11px;color:var(--wh2);}
+
+/* PAGES */
+.page{display:none;min-height:100vh;}
+.page.act{display:block;}
+
+/* HERO — full width, full height */
+.hero{position:relative;width:100%;height:100vh;min-height:640px;overflow:hidden;margin-top:64px;}
+.slides{position:absolute;top:0;left:0;right:0;bottom:0;}
+.slide{position:absolute;top:0;left:0;right:0;bottom:0;opacity:0;transition:opacity 1.2s ease;}
+.slide.act{opacity:1;}
+.slide-bg{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background-size:cover;background-position:center center;
+  background-repeat:no-repeat;
+}
+.slide-mask{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to right,rgba(8,8,8,.88) 0%,rgba(8,8,8,.6) 45%,rgba(8,8,8,.25) 75%,rgba(8,8,8,.05) 100%);}
+.slide-mask2{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(8,8,8,.75) 0%,transparent 45%);}
+.hc{position:absolute;left:5%;top:50%;transform:translateY(-50%);z-index:5;max-width:520px;}
+.htag{font-size:10px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+.hh1{font-family:var(--ff);font-size:clamp(64px,10vw,140px);line-height:.88;letter-spacing:2px;margin-bottom:20px;}
+.hh1 span{color:var(--gold);}
+.hsub{font-size:13px;color:var(--wh2);letter-spacing:.5px;line-height:1.8;max-width:360px;margin-bottom:36px;font-weight:300;}
+.hbtns{display:flex;gap:12px;flex-wrap:wrap;}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 30px;font-family:var(--fb);font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;transition:all .3s;text-decoration:none;}
+.btn-g{background:var(--gold);color:var(--blk);}
+.btn-g:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-o{background:transparent;color:var(--wh);border:1px solid rgba(255,255,255,.2);}
+.btn-o:hover{border-color:var(--gold);color:var(--gold);}
+.sdots{position:absolute;bottom:36px;left:5%;display:flex;gap:8px;z-index:6;}
+.dot{width:24px;height:2px;background:rgba(255,255,255,.2);cursor:pointer;transition:all .35s;}
+.dot.act{width:44px;background:var(--gold);}
+.sctr{position:absolute;bottom:36px;right:5%;font-family:var(--ff);font-size:28px;color:rgba(255,255,255,.07);z-index:6;letter-spacing:3px;}
+
+/* TRUST STRIP */
+.trust{background:var(--blk3);border-top:1px solid rgba(255,255,255,.05);border-bottom:1px solid rgba(255,255,255,.05);display:grid;grid-template-columns:repeat(4,1fr);}
+.ti{padding:20px;display:flex;align-items:center;gap:12px;border-right:1px solid rgba(255,255,255,.05);}
+.ti:last-child{border:none;}
+.ti svg{width:20px;height:20px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.ti strong{display:block;font-size:12px;font-weight:600;margin-bottom:1px;}
+.ti span{font-size:11px;color:var(--wh2);}
+
+/* SECTIONS */
+.sect{padding:88px 5%;}
+.sl{font-size:9px;letter-spacing:5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.sh{font-family:var(--ff);font-size:clamp(38px,6vw,72px);line-height:.92;}
+.sh2{font-family:var(--ff);font-size:clamp(34px,5vw,60px);line-height:.92;}
+.shead{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:52px;flex-wrap:wrap;gap:20px;}
+.lk{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--wh2);cursor:pointer;border-bottom:1px solid rgba(255,255,255,.15);padding-bottom:2px;transition:all .3s;}
+.lk:hover{color:var(--gold);border-color:var(--gold);}
+
+/* CATEGORY GRID — images fill full card */
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+.cat-card{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;display:block;}
+.cat-img{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background-size:cover;background-position:center center;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.cat-card:hover .cat-img{transform:scale(1.07);}
+.cat-ov{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(8,8,8,.9) 0%,rgba(8,8,8,.2) 50%,rgba(8,8,8,.0) 100%);transition:background .4s;}
+.cat-card:hover .cat-ov{background:linear-gradient(to top,rgba(8,8,8,.95) 0%,rgba(8,8,8,.4) 60%,rgba(8,8,8,.05) 100%);}
+.cat-info{position:absolute;bottom:0;left:0;right:0;padding:18px 14px;transition:transform .35s;}
+.cat-card:hover .cat-info{transform:translateY(-6px);}
+.cat-nm{font-family:var(--ff);font-size:20px;letter-spacing:2px;margin-bottom:3px;transition:color .3s;}
+.cat-card:hover .cat-nm{color:var(--gold);}
+.cat-cn{font-size:10px;color:var(--wh2);letter-spacing:2px;}
+
+/* PRODUCT GRID */
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--blk3);}
+.pg.cols4{grid-template-columns:repeat(4,1fr);}
+.pc{background:var(--blk);overflow:hidden;cursor:pointer;position:relative;}
+.pi{aspect-ratio:3/4;overflow:hidden;position:relative;background:var(--blk2);}
+.pi-in{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background-size:cover;background-position:center top;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.pc:hover .pi-in{transform:scale(1.06);}
+.pbadge{position:absolute;top:12px;left:12px;padding:5px 11px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;z-index:2;}
+.bsale{background:var(--red);color:#fff;}
+.bnew{background:var(--gold);color:var(--blk);}
+.bbest{background:#fff;color:var(--blk);}
+.phov{position:absolute;bottom:0;left:0;right:0;padding:12px 14px;background:rgba(8,8,8,.94);transform:translateY(100%);transition:transform .3s;z-index:3;display:flex;gap:8px;}
+.pc:hover .phov{transform:translateY(0);}
+.badd{flex:1;padding:11px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;cursor:pointer;border:none;background:var(--gold);color:var(--blk);transition:background .2s;font-family:var(--fb);}
+.badd:hover{background:var(--gold2);}
+.bwa{background:transparent;border:1px solid rgba(255,255,255,.18);color:var(--wh);padding:11px 12px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.bwa:hover{border-color:rgba(37,211,102,.5);color:rgba(37,211,102,.9);}
+.bwa svg{width:15px;height:15px;fill:currentColor;}
+.pinfo{padding:16px;}
+.pn{font-size:14px;font-weight:600;margin-bottom:3px;}
+.pcat{font-size:10px;color:var(--wh2);letter-spacing:2px;text-transform:uppercase;margin-bottom:9px;}
+.ppr{display:flex;align-items:center;gap:9px;}
+.pp{font-size:17px;font-weight:700;color:var(--gold);}
+.po{font-size:12px;color:var(--wh3);text-decoration:line-through;}
+
+/* LOOKBOOK */
+.lbg{display:grid;grid-template-columns:1.3fr 1fr 1fr;grid-template-rows:270px 270px;gap:3px;}
+.lb{overflow:hidden;position:relative;cursor:pointer;}
+.lb:first-child{grid-row:span 2;}
+.lb-in{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background-size:cover;background-position:center center;
+  transition:transform .7s cubic-bezier(.25,.46,.45,.94);
+}
+.lb:hover .lb-in{transform:scale(1.05);}
+.lb-ov{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0);transition:background .4s;display:flex;align-items:flex-end;padding:22px;}
+.lb:hover .lb-ov{background:rgba(0,0,0,.5);}
+.lbtag{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);opacity:0;transform:translateY(8px);transition:all .35s;border-bottom:1px solid rgba(191,160,80,.4);padding-bottom:4px;}
+.lb:hover .lbtag{opacity:1;transform:none;}
+
+/* PRODUCT DETAIL */
+.pdl{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 64px);padding-top:64px;}
+.pdgal{position:sticky;top:64px;height:calc(100vh - 64px);display:grid;grid-template-columns:68px 1fr;gap:6px;padding:20px 0 20px 5%;}
+.pdthumbs{display:flex;flex-direction:column;gap:6px;overflow-y:auto;}
+.pdthumb{
+  width:60px;height:72px;cursor:pointer;
+  background-size:cover;background-position:center top;
+  opacity:.45;transition:opacity .25s;flex-shrink:0;
+}
+.pdthumb.act,.pdthumb:hover{opacity:1;}
+.pdthumb.act{outline:1px solid var(--gold);}
+.pdmain{
+  overflow:hidden;flex:1;
+  background-size:cover;background-position:center top;
+  background-color:var(--blk2);
+  transition:background-image .4s;
+}
+.pdinfo{padding:52px 5% 52px 36px;display:flex;flex-direction:column;overflow-y:auto;}
+.pdbread{font-size:11px;color:var(--wh3);margin-bottom:22px;cursor:pointer;}
+.pdbread span{color:var(--wh2);}
+.pdbrand{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.pdtitle{font-family:var(--ff);font-size:clamp(30px,4vw,50px);line-height:.93;margin-bottom:14px;}
+.pdr{display:flex;align-items:center;gap:8px;margin-bottom:18px;}
+.stars{color:var(--gold);font-size:12px;letter-spacing:2px;}
+.pdrv{font-size:12px;color:var(--wh2);}
+.pdpr{font-size:26px;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.pdold{font-size:13px;color:var(--wh3);text-decoration:line-through;margin-bottom:22px;}
+.pdiv{height:1px;background:rgba(255,255,255,.07);margin:20px 0;}
+.pdlb{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--wh2);margin-bottom:12px;}
+.szgrid{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:24px;}
+.sz{width:50px;height:50px;border:1px solid rgba(255,255,255,.12);background:transparent;color:var(--wh2);font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--fb);}
+.sz:hover{border-color:rgba(255,255,255,.35);color:var(--wh);}
+.sz.act{border-color:var(--gold);color:var(--gold);background:var(--gf);}
+.clrow{display:flex;gap:9px;margin-bottom:24px;}
+.cl{width:30px;height:30px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:border .2s;}
+.cl.act{border-color:var(--gold);}
+.qrow{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+.qctl{display:flex;align-items:center;border:1px solid rgba(255,255,255,.12);}
+.qb{width:40px;height:40px;background:none;border:none;color:var(--wh);font-size:17px;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.qb:hover{background:rgba(255,255,255,.06);color:var(--gold);}
+.qv{width:44px;text-align:center;font-size:14px;font-weight:600;}
+.pdar{display:flex;gap:9px;margin-bottom:20px;}
+.baddc{flex:1;background:var(--gold);color:var(--blk);border:none;padding:15px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:var(--fb);transition:background .2s;}
+.baddc:hover{background:var(--gold2);}
+.bwish{width:50px;height:50px;background:transparent;border:1px solid rgba(255,255,255,.12);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.bwish:hover,.bwish.act{border-color:var(--gold);}
+.bwish svg{width:17px;height:17px;stroke:var(--wh2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:all .2s;}
+.bwish.act svg{stroke:var(--gold);}
+.bwaf{width:100%;background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--wh2);padding:13px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--fb);transition:all .2s;}
+.bwaf:hover{border-color:rgba(37,211,102,.4);color:rgba(37,211,102,.9);}
+.bwaf svg{width:15px;height:15px;fill:currentColor;}
+.mkts{margin-top:18px;padding-top:18px;border-top:1px solid rgba(255,255,255,.07);}
+.mktl{font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--wh3);margin-bottom:10px;}
+.mktrow{display:flex;gap:7px;}
+.mla{padding:8px 16px;border:1px solid rgba(255,255,255,.1);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--wh2);cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;text-decoration:none;}
+.mla:hover{border-color:var(--gold);color:var(--gold);}
+.mld{width:7px;height:7px;border-radius:50%;}
+.pddesc{margin-top:28px;padding-top:28px;border-top:1px solid rgba(255,255,255,.07);font-size:13px;color:var(--wh2);line-height:1.85;}
+.acc{border-top:1px solid rgba(255,255,255,.07);margin-top:22px;}
+.aci{border-bottom:1px solid rgba(255,255,255,.07);}
+.ach{padding:15px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;user-select:none;}
+.ach svg{width:15px;height:15px;stroke:var(--wh2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:transform .3s;}
+.ach.op svg{transform:rotate(45deg);}
+.acb{max-height:0;overflow:hidden;transition:max-height .35s;font-size:13px;color:var(--wh2);line-height:1.85;}
+.acb.op{max-height:300px;padding-bottom:14px;}
+
+/* SHOP PAGE */
+.sphero{
+  height:260px;position:relative;overflow:hidden;
+  display:flex;align-items:flex-end;padding:36px 5%;
+  margin-top:64px;
+}
+.sphero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:center;filter:brightness(.18);}
+.sphero-mask{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--blk2) 0%,transparent 60%);}
+.spfilt{padding:20px 5%;background:var(--blk2);border-bottom:1px solid rgba(255,255,255,.06);display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.fb{padding:7px 16px;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--wh2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .25s;font-family:var(--fb);}
+.fb:hover,.fb.act{border-color:var(--gold);color:var(--gold);}
+
+/* CHECKOUT */
+.cow{padding:100px 5% 60px;display:grid;grid-template-columns:1fr 360px;gap:40px;min-height:100vh;}
+.cow h2{font-family:var(--ff);font-size:46px;margin-bottom:32px;}
+.stepbar{display:flex;margin-bottom:44px;}
+.step{padding:11px 22px 11px 30px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;background:var(--blk3);color:var(--wh3);clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%,12px 50%);}
+.step:first-child{clip-path:polygon(0 0,calc(100% - 12px) 0,100% 50%,calc(100% - 12px) 100%,0 100%);}
+.step.done{background:var(--blk4);color:var(--wh2);}
+.step.cur{background:var(--gold);color:var(--blk);}
+.clist{display:flex;flex-direction:column;gap:1px;background:var(--blk3);margin-bottom:22px;}
+.ci{background:var(--blk);padding:18px;display:flex;gap:14px;}
+.cii{width:68px;height:82px;background-size:cover;background-position:center top;flex-shrink:0;background-color:var(--blk3);}
+.cin{flex:1;}
+.cn{font-size:14px;font-weight:600;margin-bottom:3px;}
+.cv{font-size:11px;color:var(--wh2);margin-bottom:7px;}
+.cpr{color:var(--gold);font-size:15px;font-weight:700;}
+.ciq{display:flex;align-items:center;gap:7px;margin-top:9px;}
+.cqb{width:26px;height:26px;background:var(--blk3);border:1px solid rgba(255,255,255,.1);color:var(--wh);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.cqb:hover{border-color:var(--gold);color:var(--gold);}
+.cqn{font-size:13px;min-width:18px;text-align:center;}
+.cdel{color:var(--wh3);font-size:17px;cursor:pointer;padding:4px;transition:color .2s;align-self:flex-start;}
+.cdel:hover{color:var(--red);}
+.coup{display:flex;gap:9px;margin-bottom:28px;}
+.ci2{flex:1;background:var(--blk2);border:1px solid rgba(255,255,255,.1);color:var(--wh);padding:12px 14px;font-family:var(--fb);font-size:13px;outline:none;transition:border .25s;}
+.ci2:focus{border-color:var(--gold);}
+.ci2::placeholder{color:var(--wh3);}
+.caply{padding:12px 22px;background:var(--blk4);border:1px solid rgba(255,255,255,.1);color:var(--wh);font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;font-family:var(--fb);transition:all .2s;}
+.caply:hover{border-color:var(--gold);color:var(--gold);}
+.aform{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;}
+.aff{grid-column:span 2;}
+.fg{display:flex;flex-direction:column;gap:7px;}
+.fl{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--wh2);}
+.fi{background:var(--blk2);border:1px solid rgba(255,255,255,.1);color:var(--wh);padding:12px 14px;font-family:var(--fb);font-size:13px;outline:none;transition:border .25s;width:100%;}
+.fi:focus{border-color:var(--gold);}
+.fi::placeholder{color:var(--wh3);}
+select.fi{appearance:none;cursor:pointer;}
+.shlist{display:flex;flex-direction:column;gap:7px;margin-bottom:28px;}
+.sho{padding:14px 16px;background:var(--blk2);border:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:13px;cursor:pointer;transition:all .25s;}
+.sho.sel{border-color:var(--gold);background:var(--gf);}
+.shr{width:16px;height:16px;border:1.5px solid rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:border .2s;}
+.sho.sel .shr{border-color:var(--gold);}
+.shrd{width:7px;height:7px;background:var(--gold);border-radius:50%;opacity:0;transition:opacity .2s;}
+.sho.sel .shrd{opacity:1;}
+.shif{flex:1;}
+.shn{font-size:13px;font-weight:600;margin-bottom:2px;}
+.she{font-size:11px;color:var(--wh2);}
+.shp{font-size:14px;font-weight:700;color:var(--gold);}
+.payg{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:28px;}
+.pyo{padding:13px;background:var(--blk2);border:1px solid rgba(255,255,255,.08);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:7px;transition:border .25s;}
+.pyo.sel{border-color:var(--gold);}
+.pyo span{font-size:10px;letter-spacing:1px;color:var(--wh2);text-transform:uppercase;text-align:center;}
+.pyo.sel span{color:var(--gold);}
+.pyo svg{width:26px;height:18px;fill:var(--wh2);transition:fill .2s;}
+.pyo.sel svg{fill:var(--gold);}
+.sumcard{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:26px;}
+.sumtitle{font-family:var(--ff);font-size:22px;letter-spacing:2px;margin-bottom:22px;}
+.sumr{display:flex;justify-content:space-between;font-size:13px;margin-bottom:10px;color:var(--wh2);}
+.sumr.tot{border-top:1px solid rgba(255,255,255,.1);margin-top:14px;padding-top:14px;color:var(--wh);font-size:15px;font-weight:700;}
+.sumr.tot .sv{color:var(--gold);font-family:var(--ff);font-size:21px;}
+.fsnote{background:var(--gf);border:1px solid rgba(191,160,80,.2);padding:11px;font-size:11px;color:var(--gold);margin:14px 0;}
+.fsbar{height:2px;background:rgba(191,160,80,.15);margin-top:7px;border-radius:2px;}
+.fsf{height:100%;background:var(--gold);border-radius:2px;}
+.sbtn{width:100%;background:var(--gold);color:var(--blk);border:none;padding:16px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;font-weight:700;cursor:pointer;margin-top:18px;font-family:var(--fb);transition:background .2s;}
+.sbtn:hover{background:var(--gold2);}
+.snote{font-size:11px;color:var(--wh3);text-align:center;margin-top:10px;line-height:1.6;}
+
+/* SUCCESS PAGE */
+.sucp{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:100px 5%;text-align:center;background:radial-gradient(ellipse 60% 60% at 50% 50%,#141008,var(--blk));}
+.suci{width:72px;height:72px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 24px;}
+.suci svg{width:32px;height:32px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.sucord{font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.suck{font-family:var(--ff);font-size:clamp(40px,7vw,80px);margin-bottom:14px;}
+.sucs{font-size:13px;color:var(--wh2);max-width:420px;margin:0 auto 32px;line-height:1.75;}
+.odbox{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:26px;max-width:460px;margin:0 auto 32px;text-align:left;}
+.odr{display:flex;justify-content:space-between;font-size:13px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.odr:last-child{border:none;}
+.odl{color:var(--wh2);}
+.odv{font-weight:600;}
+.odv.gd{color:var(--gold);}
+
+/* ORDER DETAIL PAGE */
+.orddetail{padding:100px 5% 60px;max-width:720px;margin:0 auto;}
+.orddetail h2{font-family:var(--ff);font-size:46px;margin-bottom:6px;}
+.ordstatus{display:inline-flex;padding:5px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:28px;}
+.s-kirim{background:rgba(33,150,243,.1);color:#64B5F6;border:1px solid rgba(33,150,243,.2);}
+.s-selesai{background:rgba(76,175,80,.1);color:#4CAF50;border:1px solid rgba(76,175,80,.2);}
+.s-proses{background:rgba(191,160,80,.1);color:var(--gold);border:1px solid rgba(191,160,80,.2);}
+.ordcard{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:24px;margin-bottom:16px;}
+.ordcard h4{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.ordrow{display:flex;justify-content:space-between;font-size:13px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.ordrow:last-child{border:none;}
+.ordrl{color:var(--wh2);}
+.ordrv{font-weight:600;}
+.ordrv.gd{color:var(--gold);}
+.orditem{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.orditem:last-child{border:none;}
+.orditem-img{width:56px;height:68px;background-size:cover;background-position:center top;background-color:var(--blk3);flex-shrink:0;}
+.orditem-info{flex:1;}
+.orditem-name{font-size:13px;font-weight:600;margin-bottom:3px;}
+.orditem-var{font-size:11px;color:var(--wh2);}
+.orditem-price{font-size:14px;font-weight:700;color:var(--gold);}
+/* TRACKING */
+.trksteps{display:flex;flex-direction:column;}
+.ts{display:flex;gap:14px;position:relative;}
+.ts:not(:last-child)::after{content:"";position:absolute;left:9px;top:24px;width:1px;bottom:-6px;background:rgba(255,255,255,.1);}
+.tsd{width:20px;height:20px;border-radius:50%;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+.tsd.dn{border-color:var(--gold);background:var(--gf);}
+.tsd svg{width:10px;height:10px;stroke:var(--gold);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.tsb{padding-bottom:20px;}
+.tstt{font-size:13px;font-weight:600;margin-bottom:2px;}
+.tstm{font-size:11px;color:var(--wh2);}
+
+/* ABOUT */
+.abhero{height:55vh;min-height:360px;display:flex;align-items:flex-end;padding:40px 5%;position:relative;overflow:hidden;margin-top:64px;}
+.abhbg{position:absolute;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:center;filter:brightness(.25);}
+.abmask{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,rgba(8,8,8,.9) 0%,rgba(8,8,8,.4) 60%,rgba(8,8,8,.1) 100%);}
+.abstrow{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--blk3);}
+.abst{background:var(--blk);padding:36px 24px;text-align:center;}
+.abstn{font-family:var(--ff);font-size:48px;color:var(--gold);margin-bottom:6px;}
+.abstl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--wh2);}
+.abgrid{display:grid;grid-template-columns:1fr 1fr;gap:56px;padding:80px 5%;align-items:center;}
+.abimg{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center top;filter:brightness(.7);}
+
+/* CONTACT */
+.conhero{height:260px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:36px 5%;margin-top:64px;}
+.conhero-bg{position:absolute;top:0;left:0;right:0;bottom:0;background-size:cover;background-position:center;filter:brightness(.15);}
+.conhero-mask{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(to top,var(--blk) 0%,transparent 60%);}
+.conw{padding:72px 5% 80px;display:grid;grid-template-columns:1fr 1fr;gap:72px;}
+.ctform{display:flex;flex-direction:column;gap:14px;}
+.cci{display:flex;gap:14px;align-items:flex-start;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.ccico{width:36px;height:36px;border:1px solid rgba(191,160,80,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ccico svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+
+/* DASHBOARD */
+.dbl{display:grid;grid-template-columns:250px 1fr;min-height:calc(100vh - 64px);padding-top:64px;}
+.dbsb{background:var(--blk2);border-right:1px solid rgba(255,255,255,.06);padding:36px 0;display:flex;flex-direction:column;}
+.dbav{width:68px;height:68px;border-radius:50%;background:var(--gf);border:1px solid rgba(191,160,80,.28);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:26px;color:var(--gold);margin:0 auto 10px;}
+.dbun{text-align:center;font-size:14px;font-weight:600;padding:0 20px;margin-bottom:3px;}
+.dbem{text-align:center;font-size:11px;color:var(--wh2);padding:0 20px;margin-bottom:28px;}
+.dbmenu{display:flex;flex-direction:column;flex:1;}
+.dbi{display:flex;align-items:center;gap:11px;padding:13px 24px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--wh2);cursor:pointer;transition:all .2s;border-left:2px solid transparent;}
+.dbi:hover{background:rgba(255,255,255,.03);color:var(--wh);}
+.dbi.act{color:var(--gold);border-left-color:var(--gold);background:var(--gf);}
+.dbi.lo{color:var(--wh3);margin-top:auto;}
+.dbi.lo:hover{color:var(--red);}
+.dbi svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}
+.dbcon{padding:44px;overflow-y:auto;}
+.dbp{display:none;}
+.dbp.act{display:block;}
+.dbt{font-family:var(--ff);font-size:38px;margin-bottom:6px;}
+.dbst{font-size:13px;color:var(--wh2);margin-bottom:32px;}
+.dbcard{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:22px;margin-bottom:14px;}
+.dbform{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;}
+.dbff{grid-column:span 2;}
+.strow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:32px;}
+.stb{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:18px;text-align:center;}
+.stn{font-family:var(--ff);font-size:32px;color:var(--gold);margin-bottom:4px;}
+.stl{font-size:10px;color:var(--wh2);letter-spacing:2px;text-transform:uppercase;}
+.ocard{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:18px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;cursor:pointer;transition:border .2s;}
+.ocard:hover{border-color:rgba(191,160,80,.3);}
+.ono{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:3px;}
+.oitems{font-size:12px;color:var(--wh2);margin-bottom:3px;}
+.odate{font-size:11px;color:var(--wh3);}
+.otot{font-size:16px;font-weight:700;margin-bottom:6px;}
+.ost{display:inline-flex;padding:4px 12px;font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:600;}
+.adcard{background:var(--blk2);border:1px solid rgba(255,255,255,.07);padding:18px;margin-bottom:10px;position:relative;}
+.adbadge{position:absolute;top:12px;right:12px;padding:3px 9px;background:var(--gf);border:1px solid rgba(191,160,80,.22);font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;}
+.adnm{font-size:13px;font-weight:600;margin-bottom:5px;}
+.addt{font-size:13px;color:var(--wh2);line-height:1.7;}
+.adact{display:flex;gap:7px;margin-top:12px;}
+.adbtn{padding:6px 14px;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--wh2);transition:all .2s;font-family:var(--fb);}
+.adbtn:hover{border-color:var(--gold);color:var(--gold);}
+.tgrow{display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.tgrow:last-child{border:none;}
+.tgnm{font-size:13px;font-weight:500;margin-bottom:2px;}
+.tgsub{font-size:11px;color:var(--wh2);}
+.tgtog{width:40px;height:22px;border-radius:11px;background:var(--gold);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0;}
+.tgtog.off{background:var(--blk4);}
+.tgknob{position:absolute;top:3px;width:16px;height:16px;background:var(--blk);border-radius:50%;transition:left .2s;left:21px;}
+.tgtog.off .tgknob{left:3px;}
+
+/* CART DRAWER */
+.drawer{position:fixed;top:0;right:-480px;width:440px;height:100vh;background:var(--blk2);border-left:1px solid rgba(255,255,255,.08);z-index:900;transition:right .4s cubic-bezier(.25,.46,.45,.94);display:flex;flex-direction:column;}
+.drawer.op{right:0;}
+.droverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.72);z-index:899;opacity:0;pointer-events:none;transition:opacity .4s;backdrop-filter:blur(5px);}
+.droverlay.op{opacity:1;pointer-events:all;}
+.drh{padding:22px 26px;border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:space-between;}
+.drh h3{font-family:var(--ff);font-size:24px;letter-spacing:2px;}
+.drh h3 em{color:var(--gold);font-style:normal;}
+.drcl{cursor:pointer;width:34px;height:34px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.drcl:hover{border-color:var(--gold);}
+.drcl svg{width:15px;height:15px;stroke:var(--wh);fill:none;stroke-width:2;stroke-linecap:round;}
+.drits{flex:1;overflow-y:auto;padding:18px 26px;}
+.drit{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06);}
+.drim{width:64px;height:78px;background-size:cover;background-position:center top;flex-shrink:0;background-color:var(--blk3);}
+.drin{flex:1;}
+.drn{font-size:14px;font-weight:600;margin-bottom:3px;}
+.drv{font-size:11px;color:var(--wh2);margin-bottom:7px;}
+.drpr{color:var(--gold);font-size:15px;font-weight:700;}
+.drqr{display:flex;align-items:center;gap:7px;margin-top:8px;}
+.drqb{width:26px;height:26px;background:var(--blk3);border:1px solid rgba(255,255,255,.1);color:var(--wh);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.drqb:hover{border-color:var(--gold);color:var(--gold);}
+.drqn{font-size:13px;min-width:18px;text-align:center;}
+.drfl{padding:18px 26px;border-top:1px solid rgba(255,255,255,.07);}
+.drtotrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.drtotn{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--wh2);}
+.drtotp{font-family:var(--ff);font-size:24px;color:var(--gold);}
+.drfsn{font-size:11px;color:var(--gold);padding:9px 12px;background:var(--gf);border:1px solid rgba(191,160,80,.18);margin-bottom:12px;}
+.drco{width:100%;background:var(--gold);color:var(--blk);border:none;padding:15px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:var(--fb);transition:background .2s;margin-bottom:7px;}
+.drco:hover{background:var(--gold2);}
+.drwa{width:100%;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--wh2);padding:11px;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-family:var(--fb);transition:all .2s;}
+.drwa:hover{border-color:rgba(37,211,102,.4);color:rgba(37,211,102,.9);}
+.drwa svg{width:14px;height:14px;fill:currentColor;}
+
+/* AUTH MODAL */
+.moverlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:2000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+.moverlay.op{display:flex;}
+.modal{background:var(--blk2);border:1px solid rgba(255,255,255,.1);width:100%;max-width:420px;padding:40px;position:relative;}
+.mcl{position:absolute;top:14px;right:14px;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.1);transition:all .2s;}
+.mcl:hover{border-color:var(--gold);}
+.mcl svg{width:13px;height:13px;stroke:var(--wh2);fill:none;stroke-width:2;stroke-linecap:round;}
+.mlogo{font-family:var(--ff);font-size:20px;letter-spacing:3px;margin-bottom:4px;}
+.mlogo em{color:var(--gold);font-style:normal;}
+.msub{font-size:12px;color:var(--wh2);margin-bottom:28px;}
+.atab{display:flex;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:24px;}
+.at{padding:9px 18px;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;color:var(--wh2);border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .25s;}
+.at.act{color:var(--gold);border-bottom-color:var(--gold);}
+.aform{display:flex;flex-direction:column;gap:14px;}
+.aforg{font-size:11px;color:var(--wh3);text-align:right;cursor:pointer;transition:color .2s;}
+.aforg:hover{color:var(--gold);}
+.asub{background:var(--gold);color:var(--blk);border:none;padding:14px;font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:var(--fb);transition:background .2s;width:100%;}
+.asub:hover{background:var(--gold2);}
+.adiv{text-align:center;font-size:11px;color:var(--wh3);position:relative;margin:2px 0;}
+.adiv::before,.adiv::after{content:"";position:absolute;top:50%;width:36%;height:1px;background:rgba(255,255,255,.07);}
+.adiv::before{left:0;}.adiv::after{right:0;}
+.ggbtn{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--wh2);padding:13px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:var(--fb);transition:all .2s;}
+.ggbtn:hover{border-color:var(--gold);color:var(--gold);}
+
+/* FOOTER */
+footer{background:var(--blk);border-top:1px solid rgba(255,255,255,.06);padding:68px 5% 32px;}
+.ftop{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:48px;margin-bottom:48px;}
+.fbrand .logo{font-size:26px;display:block;margin-bottom:12px;}
+.fbrand p{font-size:12px;color:var(--wh2);line-height:1.8;max-width:250px;margin-bottom:18px;}
+.soc{display:flex;gap:9px;}
+.sc{width:34px;height:34px;border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .25s;}
+.sc:hover{border-color:var(--gold);}
+.sc svg{width:13px;height:13px;stroke:var(--wh2);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;transition:stroke .25s;}
+.sc:hover svg{stroke:var(--gold);}
+.fcol h4{font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;}
+.fcol ul{list-style:none;}
+.fcol ul li{margin-bottom:9px;}
+.fcol ul li a{color:var(--wh2);font-size:12px;text-decoration:none;cursor:pointer;transition:color .2s;}
+.fcol ul li a:hover{color:var(--wh);}
+.fnl input{width:100%;background:var(--blk2);border:1px solid rgba(255,255,255,.08);color:var(--wh);padding:11px 13px;font-family:var(--fb);font-size:12px;outline:none;margin-bottom:7px;transition:border .25s;}
+.fnl input:focus{border-color:var(--gold);}
+.fnl input::placeholder{color:var(--wh3);}
+.fnl button{width:100%;background:var(--gold);color:var(--blk);border:none;padding:11px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:700;cursor:pointer;font-family:var(--fb);transition:background .2s;}
+.fnl button:hover{background:var(--gold2);}
+.fbot{border-top:1px solid rgba(255,255,255,.05);padding-top:26px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+.fleg{display:flex;gap:18px;}
+.fleg a{font-size:10px;color:var(--wh3);cursor:pointer;transition:color .2s;}
+.fleg a:hover{color:var(--wh2);}
+.fcp{font-size:10px;color:var(--wh3);}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--blk2);border:1px solid rgba(191,160,80,.22);padding:13px 20px;z-index:9999;display:flex;align-items:center;gap:9px;transform:translateY(60px);opacity:0;transition:all .3s;pointer-events:none;max-width:300px;}
+.toast.show{transform:none;opacity:1;}
+.tdot{width:7px;height:7px;background:var(--gold);border-radius:50%;flex-shrink:0;}
+.tmsg{font-size:12px;font-weight:500;}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .6s,transform .6s;}
+.rv.vis{opacity:1;transform:none;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.pdl{grid-template-columns:1fr;}.pdgal{position:static;height:auto;}.cow{grid-template-columns:1fr;}.dbl{grid-template-columns:1fr;}.dbsb{flex-direction:row;flex-wrap:wrap;padding:20px;}.dbi{padding:10px 16px;}}
+@media(max-width:900px){nav{display:none;}.cat-grid{grid-template-columns:repeat(3,1fr);}.pg{grid-template-columns:repeat(2,1fr);}.ftop{grid-template-columns:1fr 1fr;}.trust{grid-template-columns:1fr 1fr;}.abstrow{grid-template-columns:1fr 1fr;}.abgrid{grid-template-columns:1fr;}.conw{grid-template-columns:1fr;}.lbg{grid-template-columns:1fr 1fr;grid-template-rows:auto;}.lb:first-child{grid-row:span 1;}}
+@media(max-width:600px){.cat-grid{grid-template-columns:repeat(2,1fr);}.pg{grid-template-columns:1fr;}.ftop{grid-template-columns:1fr;}.payg{grid-template-columns:repeat(3,1fr);}.aform{grid-template-columns:1fr;}.aff{grid-column:span 1;}.dbform{grid-template-columns:1fr;}.dbff{grid-column:span 1;}.strow{grid-template-columns:1fr 1fr;}.trust{grid-template-columns:1fr;}.lbg{grid-template-columns:1fr;}.drawer{width:100%;right:-100%;}.cow{padding:80px 5% 40px;}}
+</style>
+</head>
+<body>
+<div id="cur"></div><div id="curR"></div>
+
+<header id="hdr">
+  <div class="logo" onclick="goPage('home')"><em>in</em>deair</div>
+  <nav>
+    <a onclick="goPage('home')" id="nav-home" class="act">Home</a>
+    <a onclick="goPage('shop')" id="nav-shop">Shop Now!</a>
+    <a onclick="goPage('about')" id="nav-about">About</a>
+    <a onclick="goPage('contact')" id="nav-contact">Contact</a>
+  </nav>
+  <div class="hdr-r" id="hdrR">
+    <button class="hbtn" onclick="openAuth('masuk')">Masuk</button>
+    <button class="hbtn pri" onclick="openAuth('daftar')">Daftar</button>
+    <div class="cbtn" onclick="openDrawer()">
+      <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <div class="cbn" id="ctn">2</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ HOME ═══ -->
+<div class="page act" id="page-home">
+<div class="hero">
+  <div class="slides">
+    <div class="slide act">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=1600&q=85&auto=format&fit=crop');"></div>
+      <div class="slide-mask"></div><div class="slide-mask2"></div>
+      <div class="hc">
+        <div class="htag">NDR — Collection SS26</div>
+        <div class="hh1">Elevate<br>Your<br><span>Everyday</span></div>
+        <p class="hsub">Pakaian premium untuk semua gaya hidup — kerja, santai, dan segalanya.</p>
+        <div class="hbtns">
+          <div class="btn btn-g" onclick="goPage('shop')">Shop Now &#8594;</div>
+          <div class="btn btn-o" onclick="goPage('about')">Tentang NDR</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=1600&q=85&auto=format&fit=crop');"></div>
+      <div class="slide-mask"></div><div class="slide-mask2"></div>
+      <div class="hc">
+        <div class="htag">Kemeja &amp; Atasan Premium</div>
+        <div class="hh1">Style<br>Without<br><span>Limits</span></div>
+        <p class="hsub">Kemeja, polo, dan atasan premium dengan bahan berkualitas tinggi.</p>
+        <div class="hbtns">
+          <div class="btn btn-g" onclick="goPage('shop')">Lihat Koleksi &#8594;</div>
+          <div class="btn btn-o" onclick="openPD('kemeja-oxford')">New Arrivals</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide">
+      <div class="slide-bg" style="background-image:url('https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=1600&q=85&auto=format&fit=crop');"></div>
+      <div class="slide-mask"></div><div class="slide-mask2"></div>
+      <div class="hc">
+        <div class="htag">Outerwear &amp; Jaket</div>
+        <div class="hh1">Bold<br>Every<br><span>Season</span></div>
+        <p class="hsub">Jaket, bomber, dan outerwear pilihan untuk berbagai cuaca dan gaya.</p>
+        <div class="hbtns">
+          <div class="btn btn-g" onclick="goPage('shop')">Shop Jaket &#8594;</div>
+          <div class="btn btn-o" onclick="goPage('shop')">Lihat Semua</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sdots">
+    <div class="dot act" onclick="goSlide(0)"></div>
+    <div class="dot" onclick="goSlide(1)"></div>
+    <div class="dot" onclick="goSlide(2)"></div>
+  </div>
+  <div class="sctr" id="sctr">01 / 03</div>
+</div>
+
+<div class="trust rv">
+  <div class="ti"><svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg><div><strong>15+ Ekspedisi</strong><span>JNE, J&amp;T, SiCepat, Anteraja</span></div></div>
+  <div class="ti"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div><strong>Pembayaran Aman</strong><span>Doku &mdash; 15+ Metode Bayar</span></div></div>
+  <div class="ti"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg><div><strong>Easy Return</strong><span>7 Hari Pengembalian Gratis</span></div></div>
+  <div class="ti"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div><strong>Support 24/7</strong><span>Chat WhatsApp Siap Bantu</span></div></div>
+</div>
+
+<section class="sect" style="background:var(--blk2);">
+  <div class="shead rv"><div><div class="sl">Koleksi Kami</div><div class="sh">Shop by<br>Category</div></div><span class="lk" onclick="goPage('shop')">Lihat Semua &#8594;</span></div>
+  <div class="cat-grid">
+    <div class="cat-card rv" onclick="goPage('shop')"><div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80&auto=format&fit=crop');"></div><div class="cat-ov"></div><div class="cat-info"><div class="cat-nm">KAOS</div><div class="cat-cn">42 Produk</div></div></div>
+    <div class="cat-card rv" style="transition-delay:.07s" onclick="goPage('shop')"><div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600&q=80&auto=format&fit=crop');"></div><div class="cat-ov"></div><div class="cat-info"><div class="cat-nm">HOODIE</div><div class="cat-cn">28 Produk</div></div></div>
+    <div class="cat-card rv" style="transition-delay:.14s" onclick="goPage('shop')"><div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80&auto=format&fit=crop');"></div><div class="cat-ov"></div><div class="cat-info"><div class="cat-nm">KEMEJA</div><div class="cat-cn">35 Produk</div></div></div>
+    <div class="cat-card rv" style="transition-delay:.21s" onclick="goPage('shop')"><div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80&auto=format&fit=crop');"></div><div class="cat-ov"></div><div class="cat-info"><div class="cat-nm">JAKET</div><div class="cat-cn">19 Produk</div></div></div>
+    <div class="cat-card rv" style="transition-delay:.28s" onclick="goPage('shop')"><div class="cat-img" style="background-image:url('https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80&auto=format&fit=crop');"></div><div class="cat-ov"></div><div class="cat-info"><div class="cat-nm">CELANA</div><div class="cat-cn">24 Produk</div></div></div>
+  </div>
+</section>
+
+<section class="sect">
+  <div class="shead rv"><div><div class="sl">Pilihan Terbaik</div><div class="sh">Featured<br>Products</div></div><span class="lk" onclick="goPage('shop')">Semua Produk &#8594;</span></div>
+  <div class="pg" id="homePG"></div>
+</section>
+
+<section style="background:var(--blk2);padding:88px 0;">
+  <div style="padding:0 5%;margin-bottom:44px;" class="rv"><div class="sl">Campaign SS26</div><div class="sh">Lookbook</div></div>
+  <div class="lbg">
+    <div class="lb rv"><div class="lb-in" style="background-image:url('https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=800&q=80&auto=format&fit=crop');"></div><div class="lb-ov"><div class="lbtag">SS26 Main Look</div></div></div>
+    <div class="lb rv" style="transition-delay:.08s"><div class="lb-in" style="background-image:url('https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=600&q=80&auto=format&fit=crop');"></div><div class="lb-ov"><div class="lbtag">Urban Style</div></div></div>
+    <div class="lb rv" style="transition-delay:.14s"><div class="lb-in" style="background-image:url('https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=600&q=80&auto=format&fit=crop');"></div><div class="lb-ov"><div class="lbtag">Outerwear</div></div></div>
+    <div class="lb rv" style="transition-delay:.2s"><div class="lb-in" style="background-image:url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80&auto=format&fit=crop');"></div><div class="lb-ov"><div class="lbtag">Portrait</div></div></div>
+    <div class="lb rv" style="transition-delay:.26s"><div class="lb-in" style="background-image:url('https://images.unsplash.com/photo-1543087903-1ac2364a7ca2?w=600&q=80&auto=format&fit=crop');"></div><div class="lb-ov"><div class="lbtag">Street Series</div></div></div>
+  </div>
+</section>
+<div id="ft-home"></div>
+</div>
+
+<!-- ═══ SHOP ═══ -->
+<div class="page" id="page-shop">
+  <div class="sphero">
+    <div class="sphero-bg" style="background-image:url('https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=1200&q=80&auto=format&fit=crop');"></div>
+    <div class="sphero-mask"></div>
+    <div style="position:relative;z-index:2;"><div class="sl">NDR Apparel</div><div class="sh">All Products</div></div>
+  </div>
+  <div class="spfilt">
+    <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--wh3);margin-right:6px;">Filter:</span>
+    <button class="fb act" onclick="filterShop('all',this)">Semua</button>
+    <button class="fb" onclick="filterShop('kaos',this)">Kaos</button>
+    <button class="fb" onclick="filterShop('hoodie',this)">Hoodie</button>
+    <button class="fb" onclick="filterShop('kemeja',this)">Kemeja</button>
+    <button class="fb" onclick="filterShop('jaket',this)">Jaket</button>
+    <button class="fb" onclick="filterShop('celana',this)">Celana</button>
+  </div>
+  <div class="pg cols4" id="shopPG"></div>
+  <div id="ft-shop"></div>
+</div>
+
+<!-- ═══ PRODUCT DETAIL ═══ -->
+<div class="page" id="page-product">
+  <div class="pdl" id="pdLayout"></div>
+  <div id="ft-product"></div>
+</div>
+
+<!-- ═══ CHECKOUT ═══ -->
+<div class="page" id="page-checkout">
+  <div class="cow">
+    <div>
+      <h2>Checkout</h2>
+      <div class="stepbar">
+        <div class="step done" id="s0">Cart</div>
+        <div class="step cur" id="s1">Alamat</div>
+        <div class="step" id="s2">Pengiriman</div>
+        <div class="step" id="s3">Pembayaran</div>
+      </div>
+      <div id="panelCart">
+        <div class="clist" id="coCartList"></div>
+        <div class="coup"><input class="ci2" id="couponIn" placeholder="Kode Voucher / Promo"><button class="caply" onclick="applyCoupon()">Terapkan</button></div>
+        <div class="btn btn-g" onclick="coStep(1)" style="width:100%;justify-content:center;">Lanjut ke Alamat &#8594;</div>
+      </div>
+      <div id="panelAddr" style="display:none;">
+        <div class="aform">
+          <div class="fg"><div class="fl">Nama Lengkap</div><input class="fi" placeholder="Nama penerima"></div>
+          <div class="fg"><div class="fl">No. HP / WhatsApp</div><input class="fi" placeholder="08xxxxxxxxxx"></div>
+          <div class="fg aff"><div class="fl">Email</div><input class="fi" placeholder="email@contoh.com" type="email"></div>
+          <div class="fg aff"><div class="fl">Alamat Lengkap</div><textarea class="fi" rows="3" placeholder="Jalan, nomor, RT/RW..." style="resize:none;"></textarea></div>
+          <div class="fg"><div class="fl">Kota / Kecamatan</div><input class="fi" placeholder="Jakarta Selatan"></div>
+          <div class="fg"><div class="fl">Provinsi</div><select class="fi"><option>DKI Jakarta</option><option>Jawa Barat</option><option>Jawa Tengah</option><option>Jawa Timur</option><option>Banten</option><option>DIY Yogyakarta</option><option>Bali</option><option>Sumatera Utara</option></select></div>
+          <div class="fg"><div class="fl">Kode Pos</div><input class="fi" placeholder="12345" maxlength="5"></div>
+          <div class="fg"><div class="fl">Catatan Kurir</div><input class="fi" placeholder="Instruksi khusus... (opsional)"></div>
+        </div>
+        <div style="display:flex;gap:10px;"><div class="btn btn-o" onclick="coStep(0)">&#8592; Kembali</div><div class="btn btn-g" onclick="coStep(2)" style="flex:1;justify-content:center;">Pilih Pengiriman &#8594;</div></div>
+      </div>
+      <div id="panelShip" style="display:none;">
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:20px;">Pilih Ekspedisi &amp; Layanan</h3>
+        <div class="shlist" id="shipList"></div>
+        <div style="display:flex;gap:10px;"><div class="btn btn-o" onclick="coStep(1)">&#8592; Kembali</div><div class="btn btn-g" onclick="coStep(3)" style="flex:1;justify-content:center;">Ke Pembayaran &#8594;</div></div>
+      </div>
+      <div id="panelPay" style="display:none;">
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:6px;">Metode Pembayaran</h3>
+        <p style="font-size:12px;color:var(--wh2);margin-bottom:22px;">Aman &amp; terenkripsi via <strong style="color:var(--gold);">Doku</strong></p>
+        <div class="payg" id="payList"></div>
+        <div id="payDetail" style="background:var(--blk2);border:1px solid rgba(255,255,255,.08);padding:18px;margin-bottom:24px;display:none;">
+          <div style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--wh2);margin-bottom:14px;">Detail Pembayaran</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;" id="payInputs"></div>
+        </div>
+        <div style="display:flex;gap:10px;"><div class="btn btn-o" onclick="coStep(2)">&#8592; Kembali</div><div class="btn btn-g" onclick="placeOrder()" style="flex:1;justify-content:center;">Bayar Sekarang &#8594;</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sumcard" style="position:sticky;top:80px;">
+        <div class="sumtitle">Ringkasan</div>
+        <div id="sumItems"></div>
+        <div class="sumr"><span>Subtotal</span><span id="sumSub">-</span></div>
+        <div class="sumr" id="sumShipR" style="display:none;"><span>Ongkos Kirim</span><span id="sumSh">-</span></div>
+        <div class="sumr" id="sumDiscR" style="display:none;color:var(--gold);"><span>Diskon</span><span id="sumDis">-</span></div>
+        <div class="sumr tot"><span>Total</span><span class="sv" id="sumTot">-</span></div>
+        <div class="fsnote" id="fsNote"><span id="fsAmt"></span><div class="fsbar"><div class="fsf" id="fsF" style="width:0%"></div></div></div>
+        <div class="snote">Pembayaran aman via Doku. SSL Encrypted.</div>
+      </div>
+    </div>
+  </div>
+  <div id="ft-checkout"></div>
+</div>
+
+<!-- ═══ SUCCESS ═══ -->
+<div class="page" id="page-success">
+  <div class="sucp">
+    <div>
+      <div class="suci"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <div class="sucord">Order #NDR-<span id="sucOrdN">2026031701</span></div>
+      <div class="suck">Pesanan<br><span style="color:var(--gold);">Berhasil!</span></div>
+      <p class="sucs">Terima kasih telah berbelanja di In De Air. Pesananmu sedang kami proses dan akan segera dikirim.</p>
+      <div class="odbox">
+        <div class="odr"><span class="odl">Nomor Pesanan</span><span class="odv gd" id="sucOrdId">NDR-2026031701</span></div>
+        <div class="odr"><span class="odl">Status</span><span class="odv" style="color:#4CAF50;">Dikonfirmasi &#10003;</span></div>
+        <div class="odr"><span class="odl">Metode Bayar</span><span class="odv" id="sucPay">Transfer BCA</span></div>
+        <div class="odr"><span class="odl">Ekspedisi</span><span class="odv" id="sucShip">JNE REG</span></div>
+        <div class="odr" style="border:none;"><span class="odl">Total</span><span class="odv gd" id="sucTot">-</span></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;">
+        <div class="btn btn-o" onclick="goPage('home')">&#8592; Lanjut Belanja</div>
+        <div class="btn btn-g" onclick="openOrdDetail()">Track Pesanan &#8594;</div>
+      </div>
+    </div>
+  </div>
+  <div id="ft-success"></div>
+</div>
+
+<!-- ═══ ORDER DETAIL / TRACKING ═══ -->
+<div class="page" id="page-orderdetail">
+  <div class="orddetail">
+    <div style="font-size:11px;color:var(--wh3);margin-bottom:16px;cursor:pointer;" onclick="goPage('dashboard')">&#8592; Kembali ke Pesanan</div>
+    <h2 id="odPageTitle">Detail Pesanan</h2>
+    <div class="ordstatus s-kirim" id="odPageStatus">Dalam Pengiriman</div>
+
+    <div class="ordcard">
+      <h4>Informasi Pesanan</h4>
+      <div class="ordrow"><span class="ordrl">Nomor Pesanan</span><span class="ordrv gd" id="odID">NDR-2026031401</span></div>
+      <div class="ordrow"><span class="ordrl">Tanggal Order</span><span class="ordrv" id="odDate">14 Maret 2026</span></div>
+      <div class="ordrow"><span class="ordrl">Metode Bayar</span><span class="ordrv" id="odPayM">Transfer BCA</span></div>
+      <div class="ordrow"><span class="ordrl">Ekspedisi</span><span class="ordrv" id="odShipM">JNE REG &mdash; 3&ndash;4 Hari</span></div>
+      <div class="ordrow"><span class="ordrl">No. Resi</span><span class="ordrv gd" id="odResi">JNE1234567890</span></div>
+      <div class="ordrow"><span class="ordrl">Total</span><span class="ordrv gd" id="odTotalD">Rp678.000</span></div>
+    </div>
+
+    <div class="ordcard">
+      <h4>Produk</h4>
+      <div id="odItemList"></div>
+    </div>
+
+    <div class="ordcard">
+      <h4>Tracking Pengiriman</h4>
+      <div class="trksteps" id="odTrack">
+        <div class="ts"><div class="tsd dn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tsb"><div class="tstt">Pesanan Dikonfirmasi</div><div class="tstm" id="tsT1">14 Mar 2026, 14:32</div></div></div>
+        <div class="ts"><div class="tsd dn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tsb"><div class="tstt">Pembayaran Diterima</div><div class="tstm">14 Mar 2026, 14:35</div></div></div>
+        <div class="ts"><div class="tsd dn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tsb"><div class="tstt">Dikemas &amp; Siap Kirim</div><div class="tstm">15 Mar 2026, 09:10</div></div></div>
+        <div class="ts"><div class="tsd dn"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="tsb"><div class="tstt">Diserahkan ke JNE</div><div class="tstm">15 Mar 2026, 13:00</div></div></div>
+        <div class="ts"><div class="tsd"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="var(--wh3)"/></svg></div><div class="tsb"><div class="tstt" style="color:var(--wh2);">Dalam Pengiriman</div><div class="tstm" id="odETA">Estimasi tiba 17&ndash;18 Mar 2026</div></div></div>
+        <div class="ts"><div class="tsd" style="border-style:dashed;"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3" fill="var(--wh3)"/></svg></div><div class="tsb"><div class="tstt" style="color:var(--wh2);">Paket Diterima</div><div class="tstm">Menunggu konfirmasi</div></div></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">
+      <div class="btn btn-o" onclick="goPage('shop')">&#8592; Lanjut Belanja</div>
+      <div class="btn btn-g" onclick="waTrack()">Cek Resi via WhatsApp</div>
+    </div>
+  </div>
+  <div id="ft-orderdetail"></div>
+</div>
+
+<!-- ═══ ABOUT ═══ -->
+<div class="page" id="page-about">
+  <div class="abhero">
+    <div class="abhbg" style="background-image:url('https://images.unsplash.com/photo-1490367532201-b9bc1dc483f6?w=1400&q=80&auto=format&fit=crop');"></div>
+    <div class="abmask"></div>
+    <div style="position:relative;z-index:2;"><div class="sl">Tentang Kami</div><div style="font-family:var(--ff);font-size:clamp(52px,9vw,110px);line-height:.9;">About <span style="color:var(--gold);">NDR</span></div></div>
+  </div>
+  <div class="abstrow">
+    <div class="abst"><div class="abstn">12K+</div><div class="abstl">Pelanggan</div></div>
+    <div class="abst"><div class="abstn">150+</div><div class="abstl">Produk</div></div>
+    <div class="abst"><div class="abstn">98%</div><div class="abstl">Kepuasan</div></div>
+    <div class="abst"><div class="abstn">5+</div><div class="abstl">Tahun</div></div>
+  </div>
+  <div class="abgrid">
+    <div>
+      <div class="sl">Our Story</div>
+      <div class="sh2" style="margin-bottom:22px;">Dibuat untuk<br>Semua Momen</div>
+      <p style="font-size:14px;color:var(--wh2);line-height:1.85;margin-bottom:18px;">In De Air lahir dari keyakinan sederhana: pakaian yang baik tidak harus mahal, tapi harus bermakna. Sejak 2019, NDR (In De Air) hadir sebagai brand apparel lokal Indonesia yang menjawab kebutuhan fashion sehari-hari pria modern.</p>
+      <p style="font-size:14px;color:var(--wh2);line-height:1.85;margin-bottom:28px;">Setiap produk NDR dirancang dengan teliti, menggunakan bahan berkualitas, dan dibuat oleh tangan-tangan terampil di Indonesia.</p>
+      <div class="btn btn-g" onclick="goPage('shop')" style="cursor:pointer;">Belanja Sekarang &#8594;</div>
+    </div>
+    <img class="abimg" src="https://images.unsplash.com/photo-1552902865-b72c031ac5ea?w=800&q=80&auto=format&fit=crop&crop=top" alt="NDR Lookbook" loading="lazy">
+  </div>
+  <section style="background:var(--blk2);padding:80px 5%;">
+    <div class="shead"><div><div class="sl">Nilai Kami</div><div class="sh2">Kenapa NDR?</div></div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--blk3);">
+      <div style="padding:32px;background:var(--blk);"><div style="font-family:var(--ff);font-size:34px;color:var(--gold);margin-bottom:10px;">01</div><h3 style="font-size:15px;font-weight:600;margin-bottom:10px;">Kualitas Premium</h3><p style="font-size:13px;color:var(--wh2);line-height:1.8;">Material pilihan yang nyaman dipakai seharian. Setiap jahitan diperhatikan dengan seksama.</p></div>
+      <div style="padding:32px;background:var(--blk);"><div style="font-family:var(--ff);font-size:34px;color:var(--gold);margin-bottom:10px;">02</div><h3 style="font-size:15px;font-weight:600;margin-bottom:10px;">Desain Versatile</h3><p style="font-size:13px;color:var(--wh2);line-height:1.8;">Cocok untuk kerja, santai, hangout, atau event. Satu lemari, banyak gaya.</p></div>
+      <div style="padding:32px;background:var(--blk);"><div style="font-family:var(--ff);font-size:34px;color:var(--gold);margin-bottom:10px;">03</div><h3 style="font-size:15px;font-weight:600;margin-bottom:10px;">Produk Lokal</h3><p style="font-size:13px;color:var(--wh2);line-height:1.8;">Bangga buatan Indonesia. Mendukung industri fashion lokal dan tenaga kerja dalam negeri.</p></div>
+    </div>
+  </section>
+  <div id="ft-about"></div>
+</div>
+
+<!-- ═══ CONTACT ═══ -->
+<div class="page" id="page-contact">
+  <div class="conhero">
+    <div class="conhero-bg" style="background-image:url('https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=1200&q=80&auto=format&fit=crop');"></div>
+    <div class="conhero-mask"></div>
+    <div style="position:relative;z-index:2;"><div class="sl">Hubungi Kami</div><div style="font-family:var(--ff);font-size:clamp(52px,9vw,100px);line-height:.9;">Contact</div></div>
+  </div>
+  <div class="conw">
+    <div>
+      <div class="sl">Kirim Pesan</div>
+      <div class="sh2" style="margin-bottom:28px;">Ada Pertanyaan?</div>
+      <div class="ctform">
+        <div class="fg"><div class="fl">Nama</div><input class="fi" placeholder="Nama kamu"></div>
+        <div class="fg"><div class="fl">Email</div><input class="fi" placeholder="email@contoh.com" type="email"></div>
+        <div class="fg"><div class="fl">Subjek</div><select class="fi"><option>Pertanyaan Produk</option><option>Status Pesanan</option><option>Pengembalian Barang</option><option>Kerja Sama</option><option>Lainnya</option></select></div>
+        <div class="fg"><div class="fl">Pesan</div><textarea class="fi" rows="5" placeholder="Tulis pesanmu..." style="resize:none;"></textarea></div>
+        <button class="btn btn-g" style="cursor:pointer;" onclick="toast('Pesan terkirim! Kami akan segera merespons.')">Kirim Pesan &#8594;</button>
+      </div>
+    </div>
+    <div style="padding-top:52px;">
+      <div class="sl">Info Kontak</div>
+      <div class="sh2" style="margin-bottom:28px;">Get In Touch</div>
+      <div>
+        <div class="cci"><div class="ccico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div style="font-size:12px;font-weight:600;margin-bottom:3px;">Alamat</div><div style="font-size:13px;color:var(--wh2);line-height:1.6;">Jl. Fashion Avenue No. 47<br>Jakarta Selatan, 12190</div></div></div>
+        <div class="cci"><div class="ccico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 12 19.79 19.79 0 01.7 3.38 2 2 0 012.7 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006 6l.86-.86a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div><div><div style="font-size:12px;font-weight:600;margin-bottom:3px;">WhatsApp</div><div style="font-size:13px;color:var(--wh2);">+62 857-2902-6400</div><div style="font-size:11px;color:var(--wh3);">Senin&ndash;Sabtu, 09.00&ndash;18.00 WIB</div></div></div>
+        <div class="cci"><div class="ccico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div style="font-size:12px;font-weight:600;margin-bottom:3px;">Email</div><div style="font-size:13px;color:var(--wh2);">hello@In De Air.com</div></div></div>
+      </div>
+    </div>
+  </div>
+  <div id="ft-contact"></div>
+</div>
+
+<!-- ═══ DASHBOARD ═══ -->
+<div class="page" id="page-dashboard">
+  <div class="dbl">
+    <div class="dbsb">
+      <div class="dbav" id="dbAv">AR</div>
+      <div class="dbun" id="dbUn">Ahmad Rizky</div>
+      <div class="dbem" id="dbEm">ahmad@email.com</div>
+      <div class="dbmenu">
+        <div class="dbi act" onclick="switchDb('profile',this)"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Profile Saya</div>
+        <div class="dbi" onclick="switchDb('orders',this)"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Pesanan Saya</div>
+        <div class="dbi" onclick="switchDb('address',this)"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Daftar Alamat</div>
+        <div class="dbi" onclick="switchDb('settings',this)"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Setting</div>
+        <div style="flex:1;min-height:40px;"></div>
+        <div class="dbi lo" onclick="doLogout()"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>Log Out</div>
+      </div>
+    </div>
+    <div class="dbcon">
+      <div class="dbp act" id="db-profile">
+        <div class="dbt">Profile Saya</div><div class="dbst">Kelola informasi akun dan preferensimu</div>
+        <div class="strow">
+          <div class="stb"><div class="stn">3</div><div class="stl">Total Pesanan</div></div>
+          <div class="stb"><div class="stn" style="font-size:20px;">Rp1,7Jt</div><div class="stl">Total Belanja</div></div>
+          <div class="stb"><div class="stn">12</div><div class="stl">Poin Reward</div></div>
+        </div>
+        <div class="dbcard">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Informasi Akun</div>
+          <div class="dbform">
+            <div class="fg"><div class="fl">Nama Depan</div><input class="fi" value="Ahmad"></div>
+            <div class="fg"><div class="fl">Nama Belakang</div><input class="fi" value="Rizky"></div>
+            <div class="fg dbff"><div class="fl">Email</div><input class="fi" value="ahmad@email.com" type="email"></div>
+            <div class="fg"><div class="fl">No. HP / WhatsApp</div><input class="fi" value="0812-3456-7890"></div>
+            <div class="fg"><div class="fl">Tanggal Lahir</div><input class="fi" type="date" value="1995-08-15"></div>
+          </div>
+          <div class="btn btn-g" onclick="toast('Profile berhasil disimpan!')" style="cursor:pointer;">Simpan Perubahan</div>
+        </div>
+        <div class="dbcard">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Ganti Password</div>
+          <div class="dbform">
+            <div class="fg dbff"><div class="fl">Password Lama</div><input class="fi" type="password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"></div>
+            <div class="fg"><div class="fl">Password Baru</div><input class="fi" type="password" placeholder="Min. 8 karakter"></div>
+            <div class="fg"><div class="fl">Konfirmasi</div><input class="fi" type="password" placeholder="Ulangi password baru"></div>
+          </div>
+          <div class="btn btn-o" onclick="toast('Password berhasil diubah!')" style="cursor:pointer;">Ubah Password</div>
+        </div>
+      </div>
+      <div class="dbp" id="db-orders">
+        <div class="dbt">Pesanan Saya</div><div class="dbst">Klik pesanan untuk melihat detail &amp; tracking</div>
+        <div class="ocard" onclick="openOrdDetailFromDB('NDR-2026031401','Dalam Pengiriman','s-kirim')">
+          <div><div class="ono">NDR-2026031401</div><div class="oitems">Hoodie Phantom &times;1, Oversized Tee &times;1</div><div class="odate">14 Maret 2026</div></div>
+          <div style="text-align:right;"><div class="ost s-kirim" style="margin-bottom:7px;">Dalam Pengiriman</div><div class="otot">Rp678.000</div><div style="font-size:11px;color:var(--gold);margin-top:3px;">Lihat Detail &amp; Tracking &#8594;</div></div>
+        </div>
+        <div class="ocard" onclick="openOrdDetailFromDB('NDR-2026022801','Selesai','s-selesai')">
+          <div><div class="ono">NDR-2026022801</div><div class="oitems">Kemeja Oxford Casual &times;1</div><div class="odate">28 Februari 2026</div></div>
+          <div style="text-align:right;"><div class="ost s-selesai" style="margin-bottom:7px;">Selesai</div><div class="otot">Rp335.000</div><div style="font-size:11px;color:var(--wh2);margin-top:3px;">Lihat Detail &#8594;</div></div>
+        </div>
+        <div class="ocard" onclick="openOrdDetailFromDB('NDR-2026020501','Selesai','s-selesai')">
+          <div><div class="ono">NDR-2026020501</div><div class="oitems">Cargo Pants &times;1, Polo Signature &times;2</div><div class="odate">5 Februari 2026</div></div>
+          <div style="text-align:right;"><div class="ost s-selesai" style="margin-bottom:7px;">Selesai</div><div class="otot">Rp889.000</div><div style="font-size:11px;color:var(--wh2);margin-top:3px;">Lihat Detail &#8594;</div></div>
+        </div>
+      </div>
+      <div class="dbp" id="db-address">
+        <div class="dbt">Daftar Alamat</div><div class="dbst">Kelola alamat pengiriman favoritmu</div>
+        <div class="adcard"><div class="adbadge">Utama</div><div class="adnm">Ahmad Rizky &middot; 0812-3456-7890</div><div class="addt">Jl. Sudirman No. 45, Blok A2<br>Kebayoran Baru, Jakarta Selatan 12190</div><div class="adact"><button class="adbtn" onclick="toast('Ubah alamat...')">Ubah</button><button class="adbtn">Hapus</button></div></div>
+        <div class="adcard"><div class="adnm">Ahmad Rizky &middot; 0812-3456-7890</div><div class="addt">Jl. Gajah Mada No. 12<br>Gambir, Jakarta Pusat 10130</div><div class="adact"><button class="adbtn" onclick="toast('Ubah alamat...')">Ubah</button><button class="adbtn" onclick="toast('Dijadikan alamat utama!')">Jadikan Utama</button><button class="adbtn" onclick="toast('Alamat dihapus')">Hapus</button></div></div>
+        <div class="btn btn-o" style="margin-top:14px;cursor:pointer;" onclick="toast('Form tambah alamat...')">+ Tambah Alamat Baru</div>
+      </div>
+      <div class="dbp" id="db-settings">
+        <div class="dbt">Setting</div><div class="dbst">Atur preferensi notifikasi dan keamanan akun</div>
+        <div class="dbcard">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Notifikasi</div>
+          <div class="tgrow"><div><div class="tgnm">Notif Email Pesanan</div><div class="tgsub">Update status pesanan via email</div></div><div class="tgtog" onclick="this.classList.toggle('off')"><div class="tgknob"></div></div></div>
+          <div class="tgrow"><div><div class="tgnm">Notif WhatsApp Pesanan</div><div class="tgsub">Update status via WA</div></div><div class="tgtog" onclick="this.classList.toggle('off')"><div class="tgknob"></div></div></div>
+          <div class="tgrow"><div><div class="tgnm">Promo &amp; Newsletter</div><div class="tgsub">Info promo dan drop terbaru</div></div><div class="tgtog off" onclick="this.classList.toggle('off')"><div class="tgknob"></div></div></div>
+          <div class="tgrow" style="border:none;"><div><div class="tgnm">Update Produk Baru</div><div class="tgsub">Notifikasi koleksi baru</div></div><div class="tgtog off" onclick="this.classList.toggle('off')"><div class="tgknob"></div></div></div>
+        </div>
+        <div class="dbcard" style="margin-top:14px;">
+          <div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:18px;">Keamanan</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <button class="btn btn-o" style="cursor:pointer;justify-content:flex-start;" onclick="toast('Mengarahkan ke 2FA...')">Aktifkan Verifikasi 2 Langkah</button>
+            <button class="adbtn" style="padding:11px 18px;" onclick="toast('Sesi dihapus dari semua perangkat')">Keluar dari Semua Perangkat</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="ft-dashboard"></div>
+</div>
+
+<!-- ═══ DRAWER ═══ -->
+<div class="droverlay" id="drOv" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="drh"><h3>Cart <em id="drN">(2)</em></h3><div class="drcl" onclick="closeDrawer()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div></div>
+  <div class="drits" id="drItems"></div>
+  <div class="drfl">
+    <div class="drfsn" id="drFsn"></div>
+    <div class="drtotrow"><div class="drtotn">Total</div><div class="drtotp" id="drTot">-</div></div>
+    <p style="font-size:11px;color:var(--wh3);margin-bottom:12px;">Belum termasuk ongkos kirim.</p>
+    <button class="drco" onclick="closeDrawer();goPage('checkout')">Checkout &mdash; Bayar Sekarang</button>
+    <button class="drwa" onclick="waCart()"><svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Order via WhatsApp</button>
+  </div>
+</div>
+
+<!-- ═══ AUTH MODAL ═══ -->
+<div class="moverlay" id="authModal">
+  <div class="modal">
+    <div class="mcl" onclick="closeAuth()"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></div>
+    <div class="mlogo"><em>in</em>deair</div><div class="msub">NDR &mdash; Apparel for Makers</div>
+    <div class="atab">
+      <div class="at act" id="tabM" onclick="switchAuth('masuk')">Masuk</div>
+      <div class="at" id="tabD" onclick="switchAuth('daftar')">Daftar</div>
+    </div>
+    <div id="fMasuk" class="aform">
+      <div class="fg"><div class="fl">Email</div><input class="fi" id="liEmail" placeholder="email@contoh.com" type="email"></div>
+      <div class="fg"><div class="fl">Password</div><input class="fi" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" type="password"></div>
+      <div class="aforg">Lupa password?</div>
+      <button class="asub" onclick="doLogin()">Masuk</button>
+      <div class="adiv">atau</div>
+      <button class="ggbtn" onclick="toast('Login Google segera hadir!')">Lanjut dengan Google</button>
+    </div>
+    <div id="fDaftar" class="aform" style="display:none;">
+      <div class="fg"><div class="fl">Nama Lengkap</div><input class="fi" id="regNama" placeholder="Nama kamu"></div>
+      <div class="fg"><div class="fl">Email</div><input class="fi" id="regEmail" placeholder="email@contoh.com" type="email"></div>
+      <div class="fg"><div class="fl">No. HP / WhatsApp</div><input class="fi" placeholder="08xxxxxxxxxx"></div>
+      <div class="fg"><div class="fl">Password</div><input class="fi" placeholder="Min. 8 karakter" type="password"></div>
+      <button class="asub" onclick="doRegister()">Buat Akun</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toastEl"><div class="tdot"></div><span class="tmsg" id="toastMsg"></span></div>
+
+<script>
+var WA_NUM = '6285729026400';
+
+var PRODS = [
+  {id:'kaos-void',name:'Oversized Tee Void',cat:'kaos',price:189000,oldP:270000,badge:'sale',sizes:['XS','S','M','L','XL','XXL'],colors:['#111','#1a1a2a','#1a1010'],img:'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Kaos oversized premium cotton combed 30s. Siluet boxy, nyaman seharian.'},
+  {id:'kaos-polo',name:'Polo Signature NDR',cat:'kaos',price:245000,oldP:0,badge:'new',sizes:['S','M','L','XL','XXL'],colors:['#111','#101520','#111a10'],img:'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Polo premium bordir logo NDR. Material lacoste tebal, tidak mudah luntur.'},
+  {id:'kaos-essential',name:'Essential Tee Pack',cat:'kaos',price:149000,oldP:0,badge:null,sizes:['XS','S','M','L','XL','XXL'],colors:['#111','#1a1a1a'],img:'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Basic tee cotton combed 24s. Ringan, nyaman, perfect untuk layering.'},
+  {id:'hoodie-phantom',name:'Hoodie Phantom',cat:'hoodie',price:459000,oldP:0,badge:'best',sizes:['S','M','L','XL'],colors:['#0a0a0a','#0e0e1a','#1a1010'],img:'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Hoodie premium French Terry 300 GSM. Hangat, cocok musim hujan atau ruangan ber-AC.'},
+  {id:'hoodie-zip',name:'Zip-Up Hoodie NDR',cat:'hoodie',price:495000,oldP:0,badge:'new',sizes:['S','M','L','XL'],colors:['#0a0a0a','#14120e'],img:'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Zip hoodie French Terry premium. Resleting YKK durable, dua kantong samping dalam.'},
+  {id:'kemeja-oxford',name:'Kemeja Oxford Casual',cat:'kemeja',price:325000,oldP:0,badge:'new',sizes:['S','M','L','XL','XXL'],colors:['#141210','#101418'],img:'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Kemeja Oxford cotton 100% breathable. Versatile untuk kerja maupun santai.'},
+  {id:'kemeja-hawaii',name:'Kemeja Resort NDR',cat:'kemeja',price:285000,oldP:355000,badge:'sale',sizes:['S','M','L','XL'],colors:['#101418','#14100a'],img:'https://images.unsplash.com/photo-1604695573706-53170668f6a6?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Kemeja resort motif subtle. Material linen ringan dan sejuk untuk casual event.'},
+  {id:'jaket-bomber',name:'Bomber Jacket NDR',cat:'jaket',price:625000,oldP:750000,badge:'sale',sizes:['S','M','L','XL'],colors:['#0c0c10','#100c0a'],img:'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Bomber jacket polyester taslan water-resistant. Furing fleece hangat.'},
+  {id:'celana-cargo',name:'Cargo Pants Utility',cat:'celana',price:395000,oldP:0,badge:'new',sizes:['S','M','L','XL','XXL'],colors:['#111','#18180e'],img:'https://images.unsplash.com/photo-1542272604-787c3835535d?w=700&q=80&auto=format&fit=crop&crop=top',desc:'Cargo pants 6 kantong fungsional. Canvas tebal, cocok outdoor maupun daily wear.'}
+];
+
+var cart = [
+  {id:'hoodie-phantom',name:'Hoodie Phantom',size:'M',price:459000,qty:1},
+  {id:'kaos-void',name:'Oversized Tee Void',size:'L',price:189000,qty:1}
+];
+
+var loggedIn=false, curUser={name:'Ahmad Rizky',email:'ahmad@email.com',initials:'AR'};
+var selShip=0, selPay='bca', discAmt=0, coCurrentStep=0;
+var pdQty=1;
+var lastOrder={};
+
+var SHIPS=[
+  {n:'JNE REG',e:'3-4 Hari',p:15000},{n:'JNE YES',e:'1-2 Hari',p:25000},
+  {n:'J&T Express',e:'2-3 Hari',p:12000},{n:'SiCepat REG',e:'2-3 Hari',p:11000},
+  {n:'SiCepat HALU',e:'1-2 Hari',p:23000},{n:'Anteraja REG',e:'2-4 Hari',p:10000},
+  {n:'AnterAja Same Day',e:'Hari ini < 4 jam',p:35000},{n:'TIKI ONS',e:'1-2 Hari',p:22000},
+  {n:'Pos Indonesia',e:'3-5 Hari',p:9000},{n:'Ninja Xpress',e:'2-3 Hari',p:13000},
+  {n:'ID Express',e:'2-3 Hari',p:10000},{n:'Gosend Instant',e:'< 2 Jam',p:45000},
+  {n:'GrabExpress',e:'< 2 Jam',p:42000},{n:'ShopeeExpress',e:'2-3 Hari',p:10000},
+  {n:'Wahana',e:'3-4 Hari',p:11000}
+];
+var PAYS=[
+  {id:'bca',l:'BCA'},{id:'bni',l:'BNI'},{id:'bri',l:'BRI'},{id:'mandiri',l:'Mandiri'},
+  {id:'gopay',l:'GoPay'},{id:'ovo',l:'OVO'},{id:'dana',l:'DANA'},{id:'shopeepay',l:'ShopeePay'},
+  {id:'cc',l:'Kartu Kredit'},{id:'alfamart',l:'Alfamart'},{id:'indomaret',l:'Indomaret'},{id:'cod',l:'COD'}
+];
+
+function el(id){return document.getElementById(id);}
+function fmt(n){return 'Rp'+n.toLocaleString('id-ID');}
+function cartTotal(){return cart.reduce(function(s,c){return s+c.price*c.qty;},0);}
+function set(id,v){var e=el(id);if(e)e.innerHTML=v;}
+function toast(msg){
+  var t=el('toastEl');el('toastMsg').textContent=msg;
+  t.classList.add('show');clearTimeout(t._t);
+  t._t=setTimeout(function(){t.classList.remove('show');},2800);
+}
+
+// CURSOR
+var cur=el('cur'),curR=el('curR');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.13;ry+=(my-ry)*.13;curR.style.left=rx+'px';curR.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+// HEADER SCROLL
+window.addEventListener('scroll',function(){el('hdr').classList.toggle('stuck',window.scrollY>50);},{passive:true});
+
+// REVEAL
+var ro=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('vis');});},{threshold:0.08});
+function observe(){document.querySelectorAll('.rv:not(.vis)').forEach(function(el2){ro.observe(el2);});}
+observe();
+
+// HERO SLIDER
+var sIdx=0;
+var sTimer=setInterval(function(){goSlide((sIdx+1)%3);},5500);
+function goSlide(n){
+  document.querySelectorAll('.slide').forEach(function(s,i){s.classList.toggle('act',i===n);});
+  document.querySelectorAll('.dot').forEach(function(d,i){d.classList.toggle('act',i===n);});
+  sIdx=n;var c=el('sctr');if(c)c.textContent=String(n+1).padStart(2,'0')+' / 03';
+}
+
+// FOOTER
+var FT='<footer><div class="ftop"><div class="fbrand"><span class="logo" onclick="goPage(\'home\')"><em>in</em>deair</span><p>Brand apparel lokal Indonesia untuk pria modern.</p><div class="soc"><div class="sc"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><div class="sc"><svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-7.13 6.29 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.67a8.16 8.16 0 004.78 1.52V7.74a4.85 4.85 0 01-1.01-.05z"/></svg></div></div></div><div class="fcol"><h4>Shop</h4><ul><li><a onclick="goPage(\'shop\')">New Arrivals</a></li><li><a onclick="goPage(\'shop\')">Kaos</a></li><li><a onclick="goPage(\'shop\')">Hoodie</a></li><li><a onclick="goPage(\'shop\')">Kemeja</a></li><li><a onclick="goPage(\'shop\')">Jaket</a></li><li><a onclick="goPage(\'shop\')">Celana</a></li></ul></div><div class="fcol"><h4>Info</h4><ul><li><a onclick="goPage(\'about\')">About NDR</a></li><li><a>FAQ</a></li><li><a>Size Guide</a></li><li><a onclick="goPage(\'contact\')">Contact</a></li><li><a>Privacy Policy</a></li></ul></div><div class="fcol fnl"><h4>Newsletter</h4><p style="font-size:12px;color:var(--wh2);margin-bottom:14px;line-height:1.7;">Update drop terbaru &amp; promo eksklusif.</p><input placeholder="Email kamu"><button onclick="toast(\'Terima kasih! Kamu sudah subscribe.\')">Subscribe</button></div></div><div class="fbot"><span class="fcp">&copy; 2026 In De Air by NDR (In De Air).</span><div class="fleg"><a>Privacy</a><a>Terms</a></div></div></footer>';
+function renderFooters(){
+  ['ft-home','ft-shop','ft-product','ft-checkout','ft-success','ft-about','ft-contact','ft-dashboard','ft-orderdetail'].forEach(function(id){
+    var e=el(id);if(e)e.innerHTML=FT;
+  });
+}
+
+// PAGES
+function goPage(pg){
+  clearInterval(sTimer);
+  document.querySelectorAll('.page').forEach(function(p){p.classList.remove('act');});
+  document.querySelectorAll('nav a').forEach(function(a){a.classList.remove('act');});
+  var p=el('page-'+pg);if(!p)return;
+  p.classList.add('act');
+  var n=el('nav-'+pg);if(n)n.classList.add('act');
+  window.scrollTo({top:0});
+  if(pg==='home'){renderHomeProds();sTimer=setInterval(function(){goSlide((sIdx+1)%3);},5500);}
+  if(pg==='shop')renderShop();
+  if(pg==='checkout')renderCheckout();
+  if(pg==='dashboard'){if(!loggedIn){openAuth('masuk');return;}renderDashboard();}
+  renderFooters();observe();
+}
+
+// PRODUCT CARD
+function badgeH(b){
+  if(!b)return '';
+  var cls=b==='sale'?'bsale':b==='new'?'bnew':'bbest';
+  var txt=b==='sale'?'SALE':b==='new'?'NEW':'BEST SELLER';
+  return '<div class="pbadge '+cls+'">'+txt+'</div>';
+}
+function pCard(p){
+  var old=p.oldP?'<div class="po">'+fmt(p.oldP)+'</div>':'';
+  return '<div class="pc" onclick="openPD(\''+p.id+'\')"><div class="pi">'
+    +'<div class="pi-in" style="background-image:url(\''+p.img+'\');"></div>'
+    +badgeH(p.badge)
+    +'<div class="phov">'
+    +'<button class="badd" onclick="event.stopPropagation();addCart(\''+p.id+'\')">+ Add to Cart</button>'
+    +'<button class="bwa" onclick="event.stopPropagation();waProd(\''+p.name+'\')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></button>'
+    +'</div></div>'
+    +'<div class="pinfo"><div class="pn">'+p.name+'</div><div class="pcat">'+p.cat+'</div>'
+    +'<div class="ppr"><div class="pp">'+fmt(p.price)+'</div>'+old+'</div></div></div>';
+}
+function renderHomeProds(){var g=el('homePG');if(g)g.innerHTML=PRODS.slice(0,6).map(pCard).join('');}
+var shopCat='all';
+function renderShop(){var g=el('shopPG');if(!g)return;var ps=shopCat==='all'?PRODS:PRODS.filter(function(p){return p.cat===shopCat;});g.innerHTML=ps.map(pCard).join('');}
+function filterShop(cat,btn){shopCat=cat;document.querySelectorAll('.fb').forEach(function(b){b.classList.remove('act');});btn.classList.add('act');renderShop();}
+
+// PRODUCT DETAIL
+function openPD(id){
+  var p=PRODS.find(function(x){return x.id===id;})||PRODS[0];
+  pdQty=1;
+  var sz=p.sizes.map(function(s,i){return '<button class="sz'+(i===1?' act':'')+'" onclick="this.closest(\'.szgrid\').querySelectorAll(\'.sz\').forEach(function(b){b.classList.remove(\'act\')});this.classList.add(\'act\')">'+s+'</button>';}).join('');
+  var cl=p.colors.map(function(c,i){return '<div class="cl'+(i===0?' act':'')+'" style="background:'+c+'" onclick="this.closest(\'.clrow\').querySelectorAll(\'.cl\').forEach(function(d){d.classList.remove(\'act\')});this.classList.add(\'act\')"></div>';}).join('');
+  var old=p.oldP?'<div class="pdold">'+fmt(p.oldP)+' &middot; Hemat '+fmt(p.oldP-p.price)+'</div>':'<div style="height:18px;"></div>';
+  el('pdLayout').innerHTML=''
+    +'<div class="pdgal">'
+    +'<div class="pdthumbs">'
+    +'<div class="pdthumb act" style="background-image:url(\''+p.img+'\')" onclick="switchThumb(this,\''+p.img+'\')"></div>'
+    +'<div class="pdthumb" style="background-image:url(\''+p.img+'\')" onclick="switchThumb(this,\''+p.img+'\')"></div>'
+    +'<div class="pdthumb" style="background-image:url(\''+p.img+'\')" onclick="switchThumb(this,\''+p.img+'\')"></div>'
+    +'</div>'
+    +'<div class="pdmain" id="pdMainImg" style="background-image:url(\''+p.img+'\');"></div>'
+    +'</div>'
+    +'<div class="pdinfo">'
+    +'<div class="pdbread" onclick="goPage(\'shop\')">&larr; Shop / <span>'+p.cat+'</span> / '+p.name+'</div>'
+    +'<div class="pdbrand">NDR &mdash; In De Air</div>'
+    +'<div class="pdtitle">'+p.name+'</div>'
+    +'<div class="pdr"><span class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</span><span class="pdrv">4.9 (128 ulasan)</span></div>'
+    +'<div class="pdpr">'+fmt(p.price)+'</div>'+old
+    +'<div class="pdiv"></div>'
+    +'<div class="pdlb">Pilih Ukuran</div><div class="szgrid">'+sz+'</div>'
+    +'<div class="pdlb">Warna</div><div class="clrow">'+cl+'</div>'
+    +'<div class="pdlb">Jumlah</div>'
+    +'<div class="qrow"><div class="qctl">'
+    +'<button class="qb" onclick="pdQty=Math.max(1,pdQty-1);el(\'pdQV\').textContent=pdQty">&minus;</button>'
+    +'<div class="qv" id="pdQV">1</div>'
+    +'<button class="qb" onclick="pdQty=Math.min(99,pdQty+1);el(\'pdQV\').textContent=pdQty">+</button>'
+    +'</div><span style="font-size:12px;color:var(--wh2);">Stok: <strong style="color:var(--wh);">28 pcs</strong></span></div>'
+    +'<div class="pdar">'
+    +'<button class="baddc" onclick="(function(){for(var i=0;i<pdQty;i++)addCart(\''+p.id+'\');toast(\''+p.name+' ditambahkan!\')})()">Add to Cart</button>'
+    +'<button class="bwish" onclick="this.classList.toggle(\'act\');toast(this.classList.contains(\'act\')?\'Ditambahkan ke Wishlist\':\'Dihapus dari Wishlist\')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></button>'
+    +'</div>'
+    +'<button class="bwaf" onclick="waProd(\''+p.name+'\')"><svg viewBox="0 0 24 24" fill="currentColor" style="width:15px;height:15px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg> Order via WhatsApp</button>'
+    +'<div class="mkts"><div class="mktl">Juga tersedia di Marketplace:</div><div class="mktrow">'
+    +'<a class="mla" href="#" onclick="event.preventDefault();toast(\'Buka Shopee...\')"><span class="mld" style="background:#EE4D2D;"></span>Shopee</a>'
+    +'<a class="mla" href="#" onclick="event.preventDefault();toast(\'Buka Tokopedia...\')"><span class="mld" style="background:#42B549;"></span>Tokopedia</a>'
+    +'<a class="mla" href="#" onclick="event.preventDefault();toast(\'Buka TikTok Shop...\')"><span class="mld" style="background:#ccc;"></span>TikTok</a>'
+    +'</div></div>'
+    +'<div class="pddesc">'+p.desc+'</div>'
+    +'<div class="acc">'
+    +'<div class="aci"><div class="ach" onclick="togAcc(this)">Panduan Ukuran<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="acb">S: Dada 88-92cm &middot; M: Dada 94-98cm &middot; L: Dada 100-104cm &middot; XL: Dada 106-110cm</div></div>'
+    +'<div class="aci"><div class="ach" onclick="togAcc(this)">Bahan &amp; Perawatan<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="acb">Cuci air dingin, keringkan digantung, setrika suhu rendah.</div></div>'
+    +'<div class="aci"><div class="ach" onclick="togAcc(this)">Pengiriman &amp; Retur<svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div class="acb">15+ ekspedisi. Pengembalian gratis 7 hari jika produk cacat.</div></div>'
+    +'</div></div>';
+  goPage('product');
+}
+function switchThumb(el2,img){
+  document.querySelectorAll('.pdthumb').forEach(function(t){t.classList.remove('act');});
+  el2.classList.add('act');
+  el('pdMainImg').style.backgroundImage='url(\''+img+'\')';
+}
+function togAcc(h){var b=h.nextElementSibling;h.classList.toggle('op');b.classList.toggle('op');}
+
+// CART
+function addCart(id){
+  var p=PRODS.find(function(x){return x.id===id;});if(!p)return;
+  var ex=cart.find(function(c){return c.id===id;});
+  if(ex)ex.qty++;else cart.push({id:id,name:p.name,size:'M',price:p.price,qty:1});
+  updCartN();toast('\u2713 '+p.name+' ditambahkan!');renderDrItems();
+}
+function updCartN(){
+  var n=cart.reduce(function(s,c){return s+c.qty;},0);
+  var e=el('ctn');if(e)e.textContent=n;
+  var d=el('drN');if(d)d.textContent='('+n+')';
+}
+function openDrawer(){renderDrItems();el('drawer').classList.add('op');el('drOv').classList.add('op');document.body.style.overflow='hidden';}
+function closeDrawer(){el('drawer').classList.remove('op');el('drOv').classList.remove('op');document.body.style.overflow='';}
+function renderDrItems(){
+  var c=el('drItems');if(!c)return;
+  var h='';
+  cart.forEach(function(it,i){
+    var p=PRODS.find(function(x){return x.id===it.id;});
+    h+='<div class="drit"><div class="drim" style="background-image:url(\''+(p?p.img:'')+'\');"></div>'
+      +'<div class="drin"><div class="drn">'+it.name+'</div><div class="drv">Size: '+it.size+'</div>'
+      +'<div class="drpr">'+fmt(it.price)+'</div>'
+      +'<div class="drqr"><div class="drqb" onclick="drQ('+i+',-1)">&minus;</div>'
+      +'<div class="drqn">'+it.qty+'</div>'
+      +'<div class="drqb" onclick="drQ('+i+',1)">+</div></div></div>'
+      +'<div class="cdel" onclick="cart.splice('+i+',1);renderDrItems();updCartN()">&times;</div></div>';
+  });
+  c.innerHTML=h;
+  var t=cartTotal();var dt=el('drTot');if(dt)dt.textContent=fmt(t);
+  var left=299000-t;var fn=el('drFsn');
+  if(fn)fn.innerHTML=left>0?'\uD83C\uDF89 Tambah <strong>'+fmt(left)+'</strong> lagi untuk <strong>FREE ONGKIR!</strong>':'\u2713 <strong>FREE ONGKIR</strong> aktif!';
+}
+function drQ(i,d){cart[i].qty=Math.max(1,cart[i].qty+d);renderDrItems();updCartN();}
+
+// CHECKOUT
+function renderCheckout(){
+  var g=el('coCartList');
+  if(g){var h='';cart.forEach(function(it,i){var p=PRODS.find(function(x){return x.id===it.id;});h+='<div class="ci"><div class="cii" style="background-image:url(\''+(p?p.img:'')+'\');"></div><div class="cin"><div class="cn">'+it.name+'</div><div class="cv">Size: '+it.size+'</div><div class="cpr">'+fmt(it.price)+'</div><div class="ciq"><div class="cqb" onclick="drQ('+i+',-1);renderCheckout()">&minus;</div><div class="cqn">'+it.qty+'</div><div class="cqb" onclick="drQ('+i+',1);renderCheckout()">+</div></div></div><div class="cdel" onclick="cart.splice('+i+',1);renderCheckout();updCartN()">&times;</div></div>';});g.innerHTML=h;}
+  var sl=el('shipList');
+  if(sl){var sh='';SHIPS.forEach(function(s,i){sh+='<div class="sho'+(i===selShip?' sel':'')+'" onclick="selShipFn('+i+',this)"><div class="shr"><div class="shrd"></div></div><div class="shif"><div class="shn">'+s.n+'</div><div class="she">'+s.e+'</div></div><div class="shp">'+fmt(s.p)+'</div></div>';});sl.innerHTML=sh;}
+  var pl=el('payList');
+  if(pl){var ph='';PAYS.forEach(function(p){ph+='<div class="pyo'+(p.id===selPay?' sel':'')+'" onclick="selPayFn(\''+p.id+'\',this)"><svg viewBox="0 0 28 20"><rect x="2" y="2" width="24" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="2" y1="8" x2="26" y2="8" stroke="currentColor" stroke-width="1.5"/><rect x="5" y="11" width="8" height="3" rx="1" fill="currentColor"/></svg><span>'+p.l+'</span></div>';});pl.innerHTML=ph;}
+  updSummary();
+}
+function selShipFn(i,e2){selShip=i;document.querySelectorAll('.sho').forEach(function(s,j){s.classList.toggle('sel',j===i);});updSummary();}
+function selPayFn(id,e2){
+  selPay=id;document.querySelectorAll('.pyo').forEach(function(p){p.classList.remove('sel');});e2.classList.add('sel');
+  var det=el('payDetail');if(!det)return;
+  if(['bca','bni','bri','mandiri'].indexOf(id)>=0){det.style.display='block';el('payInputs').innerHTML='<div class="fg"><div class="fl">No. Virtual Account</div><div style="font-family:var(--ff);font-size:20px;letter-spacing:3px;color:var(--gold);margin-top:4px;">8811 2345 6789</div></div><div class="fg"><div class="fl">Batas Bayar</div><div style="font-size:13px;color:var(--wh2);margin-top:4px;">24 jam</div></div>';}
+  else if(id==='cc'){det.style.display='block';el('payInputs').innerHTML='<div class="fg" style="grid-column:span 2;"><div class="fl">Nomor Kartu</div><input class="fi" placeholder="1234 5678 9012 3456"></div><div class="fg"><div class="fl">MM/YY</div><input class="fi" placeholder="12/27"></div><div class="fg"><div class="fl">CVV</div><input class="fi" placeholder="123" type="password"></div>';}
+  else det.style.display='none';
+}
+function updSummary(){
+  var sub=cartTotal(),ship=SHIPS[selShip]?SHIPS[selShip].p:0,tot=sub+ship-discAmt;
+  var si=el('sumItems');if(si){var h='';cart.forEach(function(c){h+='<div class="sumr"><span>'+c.name+' x'+c.qty+'</span><span>'+fmt(c.price*c.qty)+'</span></div>';});si.innerHTML=h;}
+  var ss=el('sumSub');if(ss)ss.textContent=fmt(sub);
+  var sr=el('sumShipR');var sv=el('sumSh');if(sr&&sv){sr.style.display='flex';sv.textContent=fmt(ship);}
+  if(discAmt>0){var dr=el('sumDiscR');var dv=el('sumDis');if(dr&&dv){dr.style.display='flex';dv.textContent='-'+fmt(discAmt);}}
+  var st=el('sumTot');if(st)st.textContent=fmt(tot);
+  var fn=el('fsNote');
+  if(fn){var left=299000-sub;fn.style.display=left>0?'block':'none';if(left>0){var fa=el('fsAmt');if(fa)fa.textContent='Tambah '+fmt(left)+' lagi untuk FREE ONGKIR!';var ff=el('fsF');if(ff)ff.style.width=Math.min(100,(sub/299000)*100)+'%';}}
+}
+function applyCoupon(){
+  var v=el('couponIn')?el('couponIn').value.toUpperCase():'';
+  if(v==='NDR20'){discAmt=Math.round(cartTotal()*.2);toast('\u2713 Diskon 20% aktif!');updSummary();}
+  else if(v==='GRATIS'){discAmt=30000;toast('\u2713 Diskon Rp30.000!');updSummary();}
+  else toast('Kode tidak valid.');
+}
+function coStep(n){
+  coCurrentStep=n;
+  ['panelCart','panelAddr','panelShip','panelPay'].forEach(function(id,i){var e=el(id);if(e)e.style.display=i===n?'block':'none';});
+  ['s0','s1','s2','s3'].forEach(function(id,i){var e=el(id);if(!e)return;e.className='step'+(i<n?' done':i===n?' cur':'');});
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function placeOrder(){
+  var n='NDR-'+Date.now().toString().slice(-10);
+  var pn=PAYS.find(function(p){return p.id===selPay;});
+  lastOrder={id:n,pay:pn?pn.l:'Transfer Bank',ship:SHIPS[selShip].n+' - '+SHIPS[selShip].e,total:fmt(cartTotal()+SHIPS[selShip].p-discAmt),items:cart.slice()};
+  set('sucOrdN',n);set('sucOrdId',n);set('sucPay',lastOrder.pay);set('sucShip',lastOrder.ship);set('sucTot',lastOrder.total);
+  cart=[];updCartN();renderDrItems();goPage('success');
+}
+
+// ORDER DETAIL
+function openOrdDetail(){
+  var o=lastOrder;
+  if(!o||!o.id){o={id:'NDR-2026031401',pay:'Transfer BCA',ship:'JNE REG - 3-4 Hari',total:'Rp678.000',items:[{id:'hoodie-phantom',name:'Hoodie Phantom',size:'M',price:459000,qty:1},{id:'kaos-void',name:'Oversized Tee Void',size:'L',price:189000,qty:1}]};}
+  populateOrdDetail(o,'Dalam Pengiriman','s-kirim');
+  goPage('orderdetail');
+}
+function openOrdDetailFromDB(ordId,status,statusCls){
+  var sampleItems=[{id:'hoodie-phantom',name:'Hoodie Phantom',size:'M',price:459000,qty:1},{id:'kaos-void',name:'Oversized Tee Void',size:'L',price:189000,qty:1}];
+  var o={id:ordId,pay:'Transfer BCA',ship:'JNE REG - 3-4 Hari',total:'Rp678.000',items:sampleItems};
+  populateOrdDetail(o,status,statusCls);
+  goPage('orderdetail');
+}
+function populateOrdDetail(o,status,statusCls){
+  set('odID',o.id);set('odTotalD',o.total);
+  set('odPayM',o.pay);set('odShipM',o.ship);
+  var sts=el('odPageStatus');if(sts){sts.className='ordstatus '+statusCls;sts.textContent=status;}
+  var il=el('odItemList');
+  if(il&&o.items){
+    var h='';
+    o.items.forEach(function(it){
+      var p=PRODS.find(function(x){return x.id===it.id;});
+      h+='<div class="orditem"><div class="orditem-img" style="background-image:url(\''+(p?p.img:'')+'\');"></div>'
+        +'<div class="orditem-info"><div class="orditem-name">'+it.name+'</div><div class="orditem-var">Size: '+it.size+' &middot; Qty: '+it.qty+'</div></div>'
+        +'<div class="orditem-price">'+fmt(it.price*it.qty)+'</div></div>';
+    });
+    il.innerHTML=h;
+  }
+}
+function waTrack(){
+  var oid=el('odID')?el('odID').textContent:'NDR-2026031401';
+  var resi=el('odResi')?el('odResi').textContent:'JNE1234567890';
+  var msg='Halo In De Air! Saya ingin cek status pengiriman pesanan:\n\nNo. Pesanan: '+oid+'\nNo. Resi: '+resi+'\n\nMohon bantuannya. Terima kasih!';
+  toast('Membuka WhatsApp...');
+  setTimeout(function(){window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');},500);
+}
+
+// WA
+function waProd(name){
+  var msg='Halo In De Air! Saya tertarik dengan produk: *'+name+'*. Apakah masih tersedia? Terima kasih!';
+  toast('Membuka WhatsApp...');
+  setTimeout(function(){window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');},500);
+}
+function waCart(){
+  if(!cart.length){toast('Keranjang kosong!');return;}
+  var lines=cart.map(function(c){return '\u2022 '+c.name+' (Size: '+c.size+') x'+c.qty+' - '+fmt(c.price*c.qty);}).join('\n');
+  var msg='Halo In De Air! Saya ingin order:\n\n'+lines+'\n\nTotal: '+fmt(cartTotal())+'\n\nMohon konfirmasi ketersediaan stok. Terima kasih!';
+  toast('Membuka WhatsApp...');
+  setTimeout(function(){window.open('https://wa.me/'+WA_NUM+'?text='+encodeURIComponent(msg),'_blank');},500);
+}
+
+// AUTH
+function openAuth(tab){switchAuth(tab);el('authModal').classList.add('op');}
+function closeAuth(){el('authModal').classList.remove('op');}
+function switchAuth(tab){
+  el('tabM').classList.toggle('act',tab==='masuk');
+  el('tabD').classList.toggle('act',tab==='daftar');
+  el('fMasuk').style.display=tab==='masuk'?'flex':'none';
+  el('fDaftar').style.display=tab==='daftar'?'flex':'none';
+}
+el('authModal').addEventListener('click',function(e){if(e.target===e.currentTarget)closeAuth();});
+function doLogin(){
+  var em=el('liEmail')?el('liEmail').value||'ahmad@email.com':'ahmad@email.com';
+  loggedIn=true;curUser={name:'Ahmad Rizky',email:em,initials:'AR'};
+  updHdr();closeAuth();toast('Selamat datang kembali, Ahmad!');
+}
+function doRegister(){
+  var nm=el('regNama')?el('regNama').value||'Member Baru':'Member Baru';
+  var em=el('regEmail')?el('regEmail').value||'member@email.com':'member@email.com';
+  loggedIn=true;
+  var pts=nm.trim().split(' ');
+  curUser={name:nm,email:em,initials:((pts[0]||'')[0]||'')+(pts[1]?(pts[1][0]||''):((pts[0]||'')[1]||''))};
+  updHdr();closeAuth();toast('Akun berhasil dibuat!');
+}
+function doLogout(){loggedIn=false;updHdr();goPage('home');toast('Berhasil log out!');}
+function updHdr(){
+  var r=el('hdrR');if(!r)return;
+  var n=cart.reduce(function(s,c){return s+c.qty;},0);
+  var cBtn='<div class="cbtn" onclick="openDrawer()"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg><div class="cbn" id="ctn">'+n+'</div></div>';
+  if(loggedIn){r.innerHTML='<div class="user-chip" onclick="goPage(\'dashboard\')"><div class="uav">'+curUser.initials+'</div><span class="uname">'+curUser.name.split(' ')[0]+'</span></div>'+cBtn;}
+  else{r.innerHTML='<button class="hbtn" onclick="openAuth(\'masuk\')">Masuk</button><button class="hbtn pri" onclick="openAuth(\'daftar\')">Daftar</button>'+cBtn;}
+}
+
+// DASHBOARD
+function renderDashboard(){
+  var av=el('dbAv');if(av)av.textContent=curUser.initials;
+  var un=el('dbUn');if(un)un.textContent=curUser.name;
+  var em=el('dbEm');if(em)em.textContent=curUser.email;
+}
+function switchDb(panel,elem){
+  document.querySelectorAll('.dbi').forEach(function(i){i.classList.remove('act');});elem.classList.add('act');
+  document.querySelectorAll('.dbp').forEach(function(p){p.classList.remove('act');});
+  var dp=el('db-'+panel);if(dp)dp.classList.add('act');
+}
+
+// INIT
+renderHomeProds();
+renderFooters();
+renderDrItems();
+updCartN();
+</script>
+</body>
+</html>
